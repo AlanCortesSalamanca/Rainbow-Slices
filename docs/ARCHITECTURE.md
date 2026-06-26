@@ -50,6 +50,17 @@ El backend también aplica headers de seguridad con `helmet` y rate limiting bá
 - La service role key de Supabase permanece únicamente en backend y nunca se expone al frontend público ni admin.
 - Las tablas de aplicación tienen RLS habilitado y se revoca acceso directo a `anon`/`authenticated`; las operaciones de negocio pasan por backend.
 
+## Supabase Storage
+
+- Las imágenes de productos se suben desde el panel admin mediante `POST /api/uploads/product-image`.
+- El frontend no sube archivos directo a Supabase Storage; envía `multipart/form-data` al backend.
+- El backend valida formato, tamaño, nombre del bucket y existencia del bucket antes de subir.
+- Como el flujo guarda URLs públicas, el backend también valida que el bucket sea público para evitar URLs rotas.
+- `SUPABASE_STORAGE_BUCKET` debe ser solo el nombre del bucket, por ejemplo `rainbaw-slices-web`.
+- El backend usa `supabase.storage.from(bucket).upload(...)` y obtiene la URL con `getPublicUrl(...)`.
+- La URL pública devuelta se guarda en `products.image_url`.
+- Para que `products.image_url` abra en navegador y en la landing pública, el bucket debe ser público o tener policy de lectura pública.
+
 ## Inventario Y Pedidos
 
 El inventario terminado se calcula por movimientos en `finished_inventory_movements`.

@@ -110,8 +110,12 @@ export function ProductFormPage() {
       let imageUrl = form.image_url.trim() || null;
 
       if (imageFile) {
-        const uploadResult = await uploadsService.productImage(imageFile);
-        imageUrl = uploadResult.imageUrl;
+        try {
+          const uploadResult = await uploadsService.productImage(imageFile);
+          imageUrl = uploadResult.imageUrl;
+        } catch (uploadError) {
+          throw new Error(uploadError instanceof Error ? uploadError.message : 'No se pudo subir la imagen. Verifica configuración de Storage.');
+        }
       }
 
       const payload = {

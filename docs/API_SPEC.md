@@ -314,7 +314,9 @@ Respuesta:
 
 ```json
 {
-  "imageUrl": "https://..."
+  "imageUrl": "https://...supabase.co/storage/v1/object/public/rainbaw-slices-web/products/archivo.webp",
+  "path": "products/archivo.webp",
+  "bucket": "rainbaw-slices-web"
 }
 ```
 
@@ -323,6 +325,10 @@ Restricciones:
 - Formatos permitidos: JPEG, PNG, WEBP y GIF.
 - Tamaño máximo: 5 MB.
 - El frontend debe guardar la URL devuelta en `products.image_url` mediante `POST /products` o `PUT /products/:id`.
+- El endpoint requiere autenticación admin porque `/uploads` está protegido por `requireAdminAuth`.
+- `SUPABASE_STORAGE_BUCKET` debe ser solo el nombre del bucket, por ejemplo `rainbaw-slices-web`.
+- Si el bucket no existe, responde con un error claro para revisar `backend/.env`.
+- Si el bucket no es público, el backend rechaza la subida con un error claro para evitar guardar URLs rotas; para imágenes públicas de productos, el bucket debe ser público o tener policy de lectura pública.
 
 ## Errores Comunes
 

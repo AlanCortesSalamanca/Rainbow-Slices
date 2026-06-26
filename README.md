@@ -65,6 +65,12 @@ cp backend/.env.example backend/.env
 
 El backend debe usar una llave segura para operaciones administrativas. No coloques credenciales reales en archivos versionados.
 
+Para imágenes de productos, `SUPABASE_STORAGE_BUCKET` debe contener solo el nombre del bucket de Supabase Storage, no una URL del dashboard. Ejemplo:
+
+```env
+SUPABASE_STORAGE_BUCKET=rainbaw-slices-web
+```
+
 También copia `frontend/.env.example` a `frontend/.env` y configura la URL de API y las credenciales públicas de Supabase Auth:
 
 ```bash
@@ -110,6 +116,17 @@ Notas de seguridad:
 - `SUPABASE_SERVICE_ROLE_KEY` nunca debe ir en frontend.
 - `VITE_SUPABASE_ANON_KEY` sí puede vivir en frontend porque es la key pública para Supabase Auth.
 - No commitear `.env` reales.
+
+## Supabase Storage para imágenes de productos
+
+- Crea el bucket en Supabase Dashboard → Storage.
+- Configura `SUPABASE_STORAGE_BUCKET` en `backend/.env` con solo el nombre del bucket.
+- No uses URLs como `https://supabase.com/dashboard/project/.../storage/files/buckets/...` en `SUPABASE_STORAGE_BUCKET`.
+- Si se usan URLs públicas en `products.image_url`, el bucket debe ser público o tener una policy que permita lectura pública.
+- El backend rechaza buckets privados en este flujo para evitar guardar URLs públicas que no abren en navegador.
+- El backend sube imágenes mediante `POST /api/uploads/product-image`.
+- El frontend guarda la URL pública devuelta en `products.image_url`.
+- Para imágenes públicas de productos, se recomienda un bucket público como `rainbaw-slices-web`.
 
 ## Correr Frontend Manualmente
 
