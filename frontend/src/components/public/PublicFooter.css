@@ -1,0 +1,58 @@
+.public-footer {
+  align-items: center;
+  border-top: 1px solid rgba(220, 191, 199, 0.72);
+  display: flex;
+  gap: 1.5rem;
+  justify-content: space-between;
+  margin: 0 auto;
+  max-width: 1180px;
+  padding: 2rem 1.25rem;
+}
+
+.public-footer__brand {
+  align-items: center;
+  display: flex;
+  gap: 0.9rem;
+}
+
+.public-footer__brand img {
+  border-radius: 50%;
+  height: 52px;
+  width: 52px;
+}
+
+.public-footer__brand strong {
+  color: #630037;
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 1.35rem;
+}
+
+.public-footer__brand p,
+.public-footer__info span {
+  color: #564148;
+  margin: 0;
+}
+
+.public-footer__info {
+  display: grid;
+  gap: 0.35rem;
+  justify-items: end;
+  text-align: right;
+}
+
+.public-footer__info a {
+  color: #880e4f;
+  font-weight: 900;
+}
+
+@media (max-width: 760px) {
+  .public-footer {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .public-footer__info {
+    justify-items: start;
+    text-align: left;
+  }
+}

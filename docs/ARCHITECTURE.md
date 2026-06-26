@@ -10,6 +10,8 @@
 
 El frontend no se conecta directamente a Supabase para operaciones críticas. Consume la API REST del backend. El backend concentra reglas de negocio, validaciones, inventario, producción, pedidos, gastos e ingresos.
 
+La vista pública también consume backend, pero solo mediante endpoints públicos explícitos bajo `/api/public`. El frontend público nunca usa Supabase directamente ni recibe llaves privilegiadas.
+
 ## Autenticación
 
 El frontend usa Supabase Auth únicamente para iniciar sesión, mantener sesión local y obtener el `access_token`. No usa Supabase para operaciones críticas de negocio.
@@ -39,6 +41,15 @@ El backend también aplica headers de seguridad con `helmet` y rate limiting bá
 - `auth.middleware`: valida JWT de Supabase y autoriza solo usuarios admin.
 - `utils`: helpers compartidos.
 
+## Endpoints Públicos Y Administrativos
+
+- `/api/public/products` es público y no requiere token; solo expone productos activos con campos seguros para cliente.
+- `/api/public/*` tiene rate limit adicional para tráfico anónimo.
+- `/api/auth` queda público para login/me administrativo según corresponda.
+- Después de esas rutas, `routes/index.ts` aplica `requireAdminAuth` para proteger `/api/products`, `/api/orders`, `/api/inventory`, `/api/production`, `/api/reports` y demás endpoints admin.
+- La service role key de Supabase permanece únicamente en backend y nunca se expone al frontend público ni admin.
+- Las tablas de aplicación tienen RLS habilitado y se revoca acceso directo a `anon`/`authenticated`; las operaciones de negocio pasan por backend.
+
 ## Inventario Y Pedidos
 
 El inventario terminado se calcula por movimientos en `finished_inventory_movements`.
@@ -60,13 +71,23 @@ El backend valida transiciones de estado de pedido en `orders.service`. El front
 
 ## Frontend
 
-- `pages`: pantallas administrativas.
+- `pages`: pantallas públicas y administrativas.
 - `components`: UI reutilizable.
 - `services`: cliente HTTP por módulo.
 - `types`: modelos TypeScript por dominio.
 - `utils`: helpers de formato.
 - `styles`: estilos globales.
 - `auth`: cliente de Supabase Auth, contexto de sesión y rutas protegidas.
+
+## Vista Pública Y Admin
+
+- `/` renderiza `PublicHomePage` como landing pública para clientes.
+- La vista pública no usa `AppLayout`, no muestra sidebar y no requiere sesión.
+- La vista pública consume `GET /api/public/products` mediante un cliente público sin `Authorization` para mostrar sabores reales.
+- Los CTAs de pedido abren WhatsApp con mensajes prellenados.
+- `/login` conserva el acceso administrativo con Supabase Auth.
+- Las rutas administrativas (`/products`, `/orders`, `/inventory`, etc.) siguen envueltas en `ProtectedRoute` y `AppLayout`.
+- Los componentes públicos viven separados bajo `components/public` para no acoplar la landing con el panel admin.
 
 ## Convenciones De Archivos
 

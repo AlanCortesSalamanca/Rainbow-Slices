@@ -1,4 +1,5 @@
 import { Router } from 'express';
+import rateLimit from 'express-rate-limit';
 import { requireAdminAuth } from '../middlewares/auth.middleware';
 import { authRouter } from './auth.routes';
 import { deliveryPointsRouter } from './deliveryPoints.routes';
@@ -8,13 +9,22 @@ import { inventoryRouter } from './inventory.routes';
 import { ordersRouter } from './orders.routes';
 import { productsRouter } from './products.routes';
 import { productionRouter } from './production.routes';
+import { publicRouter } from './public.routes';
 import { recipesRouter } from './recipes.routes';
 import { reportsRouter } from './reports.routes';
 import { uploadsRouter } from './uploads.routes';
 
 export const apiRouter = Router();
 
+const publicLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  limit: 120,
+  standardHeaders: true,
+  legacyHeaders: false
+});
+
 apiRouter.use('/auth', authRouter);
+apiRouter.use('/public', publicLimiter, publicRouter);
 apiRouter.use(requireAdminAuth);
 apiRouter.use('/products', productsRouter);
 apiRouter.use('/products', recipesRouter);

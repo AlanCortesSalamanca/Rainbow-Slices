@@ -14,6 +14,7 @@ import { ProductDetailPage } from '../pages/ProductDetailPage';
 import { ProductFormPage } from '../pages/ProductFormPage';
 import { ProductsPage } from '../pages/ProductsPage';
 import { ProductionPage } from '../pages/ProductionPage';
+import { PublicHomePage } from '../pages/PublicHomePage/PublicHomePage';
 import { RecipesPage } from '../pages/RecipesPage';
 import { ReportsPage } from '../pages/ReportsPage';
 import { LoginPage } from '../pages/LoginPage/LoginPage';
@@ -29,7 +30,7 @@ function protectedPage(page: ReactNode) {
 export function AppRoutes() {
   return (
     <Routes>
-      <Route path="/" element={<Navigate to="/products" replace />} />
+      <Route path="/" element={<PublicHomePage />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/products" element={protectedPage(<ProductsPage />)} />
       <Route path="/products/new" element={protectedPage(<ProductFormPage />)} />

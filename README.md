@@ -34,6 +34,17 @@ npm run dev
 
 La service role key de Supabase solo debe vivir en `backend/.env`. Nunca debe colocarse en frontend ni en variables `VITE_`.
 
+## Vista pública
+
+- `/` muestra la landing pública de Rainbow Slices para clientes.
+- `/login` entra al panel administrativo privado.
+- Los botones de pedido abren WhatsApp con mensajes prellenados al número `2761274898`.
+- La sección “Elige tu sabor favorito” consume `GET /api/public/products` para mostrar productos activos reales.
+- El endpoint público solo devuelve datos seguros de cliente: nombre, descripción, presentación, precio, imagen y stock actual.
+- La vista pública no usa `AppLayout` administrativo ni muestra sidebar.
+- El panel administrativo sigue protegido detrás de `/login`.
+- Las tablas de Supabase tienen RLS habilitado; el frontend no consulta tablas directamente.
+
 ## Instalación Manual
 
 ```bash
@@ -149,7 +160,7 @@ Pedidos mayores a $300 MXN requieren anticipo antes de confirmarse.
 ## Estructura
 
 ```text
-frontend/   Aplicación React administrativa.
+frontend/   Aplicación React pública y administrativa.
 backend/    API REST y reglas de negocio.
 database/   Migraciones, seeds y notas de base de datos.
 docs/       Especificación funcional, arquitectura, API y modelo de datos.

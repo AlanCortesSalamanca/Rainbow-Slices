@@ -10,6 +10,35 @@ Authorization: Bearer <access_token>
 
 El token debe venir de Supabase Auth y pertenecer a un usuario con `role: "admin"` en `user_metadata` o `app_metadata`.
 
+## Public
+
+- `GET /public/products`: lista productos activos para la landing pública. No requiere autenticación.
+
+Respuesta:
+
+```json
+[
+  {
+    "id": "uuid",
+    "name": "Cheesecake de Fresa",
+    "slug": "cheesecake-de-fresa",
+    "description": "Cheesecake artesanal de fresa",
+    "presentation": "slice",
+    "sale_price": 65,
+    "image_url": "https://...",
+    "current_stock": 5
+  }
+]
+```
+
+Reglas:
+
+- Solo devuelve productos `status = active`.
+- Solo devuelve productos de categoría `Cheesecake`.
+- Excluye productos personalizados directos (`is_custom = true`).
+- No devuelve `internal_notes` ni campos internos de administración.
+- No permite modificar datos.
+
 ## Auth
 
 - `GET /auth/me`: devuelve el usuario autenticado.
