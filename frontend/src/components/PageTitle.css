@@ -1,0 +1,33 @@
+.page-title {
+  align-items: flex-end;
+  display: flex;
+  gap: 1rem;
+  justify-content: space-between;
+  margin-bottom: 1.2rem;
+}
+
+.page-title h2 {
+  color: var(--color-wine-dark);
+  font-size: clamp(1.8rem, 3vw, 2.7rem);
+  letter-spacing: -0.04em;
+  margin: 0;
+}
+
+.page-title p {
+  color: #70564e;
+  margin: 0.35rem 0 0;
+  max-width: 680px;
+}
+
+.page-title__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+@media (max-width: 720px) {
+  .page-title {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}

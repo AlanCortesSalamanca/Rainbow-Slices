@@ -1,0 +1,22 @@
+{
+  "name": "rainbow-slices-admin",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Rainbow Slices Admin - CRM administrativo para negocio de cheesecakes.",
+  "scripts": {
+    "dev": "concurrently -n BACKEND,FRONTEND -c blue,magenta \"npm run dev:backend\" \"npm run dev:frontend\"",
+    "dev:backend": "PORT=3000 npm --prefix backend run dev",
+    "dev:frontend": "npm --prefix frontend run dev",
+    "install:all": "npm install && npm --prefix backend install && npm --prefix frontend install",
+    "build": "npm run build:backend && npm run build:frontend",
+    "build:backend": "npm --prefix backend run build",
+    "build:frontend": "npm --prefix frontend run build",
+    "typecheck": "npm run typecheck:backend && npm run typecheck:frontend",
+    "typecheck:backend": "npm --prefix backend run typecheck",
+    "typecheck:frontend": "npm --prefix frontend run typecheck",
+    "audit:all": "npm --prefix backend audit --audit-level=moderate && npm --prefix frontend audit --audit-level=moderate"
+  },
+  "devDependencies": {
+    "concurrently": "^9.0.0"
+  }
+}

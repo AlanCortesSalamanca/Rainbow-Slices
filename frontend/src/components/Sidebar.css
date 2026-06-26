@@ -1,0 +1,58 @@
+.sidebar {
+  background: linear-gradient(180deg, var(--color-wine-dark), var(--color-wine));
+  color: var(--color-white);
+  padding: 1.25rem;
+}
+
+.sidebar__brand {
+  align-items: center;
+  display: flex;
+  gap: 0.85rem;
+  margin-bottom: 2rem;
+}
+
+.sidebar__brand span {
+  color: rgba(255, 255, 255, 0.74);
+  display: block;
+  font-size: 0.86rem;
+  margin-top: 0.2rem;
+}
+
+.sidebar__mark {
+  align-items: center;
+  background: linear-gradient(135deg, var(--color-pink), var(--color-mint), var(--color-lavender));
+  border-radius: 18px;
+  color: var(--color-wine-dark) !important;
+  display: inline-flex;
+  font-weight: 800;
+  height: 52px;
+  justify-content: center;
+  width: 52px;
+}
+
+.sidebar__nav {
+  display: grid;
+  gap: 0.4rem;
+}
+
+.sidebar__link {
+  border-radius: 14px;
+  color: rgba(255, 255, 255, 0.8);
+  padding: 0.8rem 0.9rem;
+}
+
+.sidebar__link--active,
+.sidebar__link:hover {
+  background: rgba(255, 255, 255, 0.14);
+  color: var(--color-white);
+}
+
+@media (max-width: 900px) {
+  .sidebar {
+    position: static;
+  }
+
+  .sidebar__nav {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}

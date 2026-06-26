@@ -1,0 +1,21 @@
+.product-form__preview {
+  background: var(--color-pink-soft);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  display: grid;
+  gap: 0.75rem;
+  padding: 1rem;
+}
+
+.product-form__preview span {
+  color: var(--color-wine-dark);
+  font-weight: 800;
+}
+
+.product-form__preview img {
+  aspect-ratio: 16 / 9;
+  border-radius: var(--radius-md);
+  max-height: 280px;
+  object-fit: cover;
+  width: 100%;
+}

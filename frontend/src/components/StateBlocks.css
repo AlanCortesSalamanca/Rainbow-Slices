@@ -1,0 +1,22 @@
+.state-block {
+  background: rgba(255, 255, 255, 0.82);
+  border: 1px dashed var(--color-border);
+  border-radius: var(--radius-lg);
+  color: #765d55;
+  padding: 1.4rem;
+}
+
+.state-block strong {
+  color: var(--color-wine-dark);
+  display: block;
+  margin-bottom: 0.35rem;
+}
+
+.state-block p {
+  margin: 0;
+}
+
+.state-block--error {
+  border-color: #c05a6d;
+  color: #8d2631;
+}

@@ -1,0 +1,20 @@
+.input {
+  background: var(--color-white);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  color: var(--color-coffee);
+  min-height: 44px;
+  padding: 0.75rem 0.85rem;
+  width: 100%;
+}
+
+.input:focus {
+  border-color: var(--color-wine);
+  box-shadow: 0 0 0 3px rgba(143, 48, 87, 0.14);
+  outline: none;
+}
+
+.input--textarea {
+  min-height: 110px;
+  resize: vertical;
+}

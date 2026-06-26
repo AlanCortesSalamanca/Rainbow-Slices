@@ -1,0 +1,25 @@
+.reports-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.reports-card {
+  display: grid;
+  gap: 0.4rem;
+}
+
+.reports-card span {
+  color: #765d55;
+}
+
+.reports-card strong {
+  color: var(--color-wine-dark);
+  font-size: 1.8rem;
+}
+
+@media (max-width: 820px) {
+  .reports-grid {
+    grid-template-columns: 1fr;
+  }
+}

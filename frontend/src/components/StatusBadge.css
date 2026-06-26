@@ -1,0 +1,26 @@
+.status-badge {
+  background: var(--color-blue);
+  border-radius: 999px;
+  color: var(--color-coffee);
+  display: inline-flex;
+  font-size: 0.78rem;
+  font-weight: 800;
+  padding: 0.35rem 0.65rem;
+  text-transform: capitalize;
+}
+
+.status-badge--active,
+.status-badge--paid,
+.status-badge--delivered {
+  background: var(--color-mint);
+}
+
+.status-badge--inactive,
+.status-badge--cancelled {
+  background: var(--color-cream-strong);
+}
+
+.status-badge--pending,
+.status-badge--unpaid {
+  background: var(--color-pink-soft);
+}

@@ -1,0 +1,31 @@
+.data-table__wrap {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  overflow: auto;
+}
+
+.data-table {
+  background: rgba(255, 255, 255, 0.88);
+  border-collapse: collapse;
+  min-width: 720px;
+  width: 100%;
+}
+
+.data-table th,
+.data-table td {
+  border-bottom: 1px solid var(--color-border);
+  padding: 0.9rem 1rem;
+  text-align: left;
+}
+
+.data-table th {
+  background: #fff2ea;
+  color: var(--color-wine-dark);
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.data-table tr:last-child td {
+  border-bottom: 0;
+}
