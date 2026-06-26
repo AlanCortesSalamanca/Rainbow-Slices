@@ -125,10 +125,15 @@ Ejecuta los archivos de `database/migrations` en orden ascendente desde el SQL e
 1. Crear productos activos. Si el producto es por rebanada, configura `Unidades generadas por producción` con las rebanadas reales que genera un cheesecake.
 2. Registrar producción desde `Producción`. Si el producto no tiene receta, se permite producción manual sin descontar ingredientes y se incrementa stock terminado.
 3. Ver stock en `Inventario terminado`.
-4. Crear pedidos seleccionando productos activos con stock disponible.
-5. Al guardar un pedido, el backend reserva stock con movimiento `reserved` y el stock baja inmediatamente.
-6. Si se cancela antes de entregar, el backend libera reserva con `unreserved`.
-7. Si se entrega, el backend registra `unreserved` y `sold` para mantener historial sin doble descuento, y genera ingreso automático.
+4. Abrir el detalle de inventario de un producto para revisar movimientos por producción, pedido, merma o ajuste.
+5. Registrar merma solo si hay stock suficiente; la merma inserta `waste` negativo y no genera gasto.
+6. Registrar ajuste manual con nota obligatoria; los ajustes negativos no pueden dejar stock menor a 0.
+7. Crear pedidos seleccionando productos activos con stock disponible.
+8. Al guardar un pedido, el backend reserva stock con movimiento `reserved` y el stock baja inmediatamente.
+9. Si se cancela antes de entregar, el backend libera reserva con `unreserved`.
+10. Si se entrega, el backend registra `unreserved` y `sold` para mantener historial sin doble descuento, y genera ingreso automático.
+
+El stock terminado se calcula como la suma de `finished_inventory_movements.quantity` por producto. Los movimientos esperados son `production_output`, `reserved`, `unreserved`, `sold`, `waste` y `adjustment`.
 
 Estados permitidos de pedido:
 

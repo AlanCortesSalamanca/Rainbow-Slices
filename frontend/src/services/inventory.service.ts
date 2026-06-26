@@ -1,10 +1,36 @@
 import { apiClient } from './apiClient';
 import type { IngredientStock } from '../types/ingredient.types';
-import type { FinishedInventoryStock } from '../types/inventory.types';
+import type {
+  AdjustmentPayload,
+  FinishedInventoryFilters,
+  FinishedInventoryMovement,
+  FinishedInventoryMovementFilters,
+  FinishedInventoryMutationResult,
+  FinishedInventoryProductDetail,
+  FinishedInventoryStock,
+  WastePayload
+} from '../types/inventory.types';
+
+function withQuery(path: string, params: object) {
+  const query = new URLSearchParams();
+
+  Object.entries(params).forEach(([key, value]) => {
+    if (value !== undefined && value !== '') {
+      query.set(key, String(value));
+    }
+  });
+
+  const queryString = query.toString();
+  return queryString ? `${path}?${queryString}` : path;
+}
 
 export const inventoryService = {
-  finished: () => apiClient.get<FinishedInventoryStock[]>('/inventory/finished'),
+  getFinishedInventory: (filters: FinishedInventoryFilters = {}) => apiClient.get<FinishedInventoryStock[]>(withQuery('/inventory/finished', filters)),
+  getFinishedInventoryProduct: (productId: string) => apiClient.get<FinishedInventoryProductDetail>(`/inventory/finished/${productId}`),
+  getFinishedInventoryMovements: (productId: string, filters: FinishedInventoryMovementFilters = {}) => (
+    apiClient.get<FinishedInventoryMovement[]>(withQuery(`/inventory/finished/${productId}/movements`, filters))
+  ),
   ingredients: () => apiClient.get<IngredientStock[]>('/inventory/ingredients'),
-  adjustment: (payload: { product_id: string; quantity: number; notes?: string }) => apiClient.post('/inventory/finished/adjustment', payload),
-  waste: (payload: { product_id: string; quantity: number; notes?: string }) => apiClient.post('/inventory/finished/waste', payload)
+  createAdjustmentMovement: (payload: AdjustmentPayload) => apiClient.post<FinishedInventoryMutationResult>('/inventory/finished/adjustment', payload),
+  createWasteMovement: (payload: WastePayload) => apiClient.post<FinishedInventoryMutationResult>('/inventory/finished/waste', payload)
 };

@@ -1,0 +1,33 @@
+.inventory-movement-badge {
+  border-radius: 999px;
+  display: inline-flex;
+  font-size: 0.78rem;
+  font-weight: 900;
+  padding: 0.35rem 0.65rem;
+}
+
+.inventory-movement-badge--production-output,
+.inventory-movement-badge--unreserved {
+  background: var(--color-mint);
+  color: #244632;
+}
+
+.inventory-movement-badge--reserved {
+  background: #fff3c7;
+  color: #6e4b00;
+}
+
+.inventory-movement-badge--sold {
+  background: var(--color-blue);
+  color: #25445d;
+}
+
+.inventory-movement-badge--waste {
+  background: #fff0f1;
+  color: #8d2631;
+}
+
+.inventory-movement-badge--adjustment {
+  background: var(--color-pink-soft);
+  color: var(--color-wine-dark);
+}

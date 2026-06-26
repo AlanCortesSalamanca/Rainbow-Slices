@@ -33,7 +33,7 @@ export function ProductionPage() {
     const [nextBatches, nextProducts, nextStock] = await Promise.all([
       productionService.list(),
       productsService.list(),
-      inventoryService.finished()
+      inventoryService.getFinishedInventory()
     ]);
 
     const activeProducts = nextProducts.filter((product) => product.status === 'active');

@@ -1,0 +1,42 @@
+.finished-inventory-page__filters {
+  align-items: end;
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 1.4fr repeat(3, minmax(0, 1fr)) auto;
+  margin-bottom: 1rem;
+}
+
+.finished-inventory-page__grid {
+  display: grid;
+  gap: 1rem;
+}
+
+.finished-inventory-page__success,
+.finished-inventory-page__saving {
+  border-radius: var(--radius-lg);
+  font-weight: 800;
+  margin: 0 0 1rem;
+  padding: 1rem;
+}
+
+.finished-inventory-page__success {
+  background: var(--color-mint);
+  color: #244632;
+}
+
+.finished-inventory-page__saving {
+  background: var(--color-blue);
+  color: #25445d;
+}
+
+@media (max-width: 1180px) {
+  .finished-inventory-page__filters {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 720px) {
+  .finished-inventory-page__filters {
+    grid-template-columns: 1fr;
+  }
+}

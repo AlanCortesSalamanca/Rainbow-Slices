@@ -47,8 +47,14 @@ El inventario terminado se calcula por movimientos en `finished_inventory_moveme
 - Pedido crea `reserved` negativo y baja stock disponible.
 - Cancelación crea `unreserved` positivo y regresa stock reservado.
 - Entrega crea `unreserved` positivo y `sold` negativo para mantener historial sin doble descuento.
+- Merma crea `waste` negativo y no genera gasto.
+- Ajuste manual crea `adjustment` positivo o negativo con nota obligatoria.
 
 Las operaciones críticas de producción y pedido usan funciones PostgreSQL para mantener atomicidad y evitar pedidos parcialmente creados.
+
+Merma y ajuste manual usan funciones PostgreSQL con `pg_advisory_xact_lock` por producto para validar stock actual e impedir que dos operaciones concurrentes dejen inventario negativo.
+
+El backend expone `vw_finished_inventory_movements_detail` mediante el repository de inventario para trazar movimientos con producto, pedido, item de pedido y lote de producción relacionados. El frontend solo consume endpoints REST protegidos y nunca consulta Supabase directamente para inventario.
 
 El backend valida transiciones de estado de pedido en `orders.service`. El frontend muestra acciones permitidas para UX, pero la autorización real de estados y anticipo ocurre en backend.
 

@@ -49,6 +49,7 @@
 - `vw_product_recipe_costs`: costo por batch, costo unitario y ganancia estimada.
 - `vw_product_availability`: si se puede preparar y batches disponibles.
 - `vw_product_stock`: stock terminado por producto.
+- `vw_finished_inventory_movements_detail`: movimientos terminados enriquecidos con producto, pedido, item de pedido y lote de producción.
 - `vw_sales_report`: ventas, productos y puntos de entrega.
 
 ## Funciones
@@ -60,6 +61,8 @@
 - `cancel_order_with_stock_release`: cancela pedido no entregado y libera stock reservado.
 - `recalculate_order_totals`: recalcula subtotal, total, anticipo sugerido y saldo.
 - `mark_order_delivered`: libera reserva, registra venta, marca entregado/pagado y crea ingreso sin duplicarlo.
+- `register_finished_inventory_waste`: valida producto, stock suficiente y crea movimiento `waste` negativo de forma atómica.
+- `register_finished_inventory_adjustment`: valida producto, nota obligatoria, stock final no negativo y crea movimiento `adjustment` de forma atómica.
 
 ## Pedidos E Inventario
 
@@ -70,6 +73,9 @@
 - Crear pedido genera `reserved` negativo.
 - Cancelar pedido no entregado genera `unreserved` positivo.
 - Entregar pedido genera `unreserved` positivo y `sold` negativo.
+- Registrar merma genera `waste` negativo y no crea gasto.
+- Registrar ajuste manual genera `adjustment` positivo o negativo; los negativos no pueden dejar stock menor a 0.
+- `finished_inventory_movements.production_batch_id` vincula producción con `production_batches`.
 - `set_updated_at`: actualiza `updated_at`.
 
 ## Triggers

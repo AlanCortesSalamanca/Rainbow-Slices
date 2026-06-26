@@ -112,10 +112,78 @@ Si el producto no tiene receta, `production_mode` será `manual` y no se descuen
 
 ## Inventory
 
-- `GET /inventory/finished`
+- `GET /inventory/finished`: lista stock terminado por producto.
+- `GET /inventory/finished/:productId`: detalle del producto con resumen y movimientos recientes.
+- `GET /inventory/finished/:productId/movements`: movimientos filtrables del producto.
 - `GET /inventory/ingredients`
-- `POST /inventory/finished/adjustment`
-- `POST /inventory/finished/waste`
+- `POST /inventory/finished/adjustment`: registra ajuste manual.
+- `POST /inventory/finished/waste`: registra merma.
+
+Query params opcionales para `GET /inventory/finished`:
+
+- `search`
+- `presentation`: `slice`, `whole`, `mini`, `custom`
+- `status`: `with_stock`, `out_of_stock`, `negative`
+- `sort`: `stock_asc`, `stock_desc`, `name`
+
+Respuesta de `GET /inventory/finished`:
+
+```json
+[
+  {
+    "product_id": "uuid",
+    "name": "Cheesecake de Fresa",
+    "image_url": "https://...",
+    "presentation": "slice",
+    "sale_price": 55,
+    "pieces_per_batch": 9,
+    "current_stock": 12,
+    "status": "available"
+  }
+]
+```
+
+Query params opcionales para `GET /inventory/finished/:productId/movements`:
+
+- `movement_type`: `production_output`, `reserved`, `unreserved`, `sold`, `waste`, `adjustment`
+- `date_from`
+- `date_to`
+- `related_order_id`
+- `related_production_batch_id`
+
+Payload de merma:
+
+```json
+{
+  "product_id": "uuid",
+  "quantity": 2,
+  "notes": "Se dañaron durante transporte"
+}
+```
+
+Reglas de merma:
+
+- `quantity` debe ser mayor a 0.
+- No puede ser mayor al stock actual.
+- Inserta `movement_type = waste` con cantidad negativa.
+- No genera gasto.
+
+Payload de ajuste manual:
+
+```json
+{
+  "product_id": "uuid",
+  "quantity": -1,
+  "notes": "Corrección por conteo físico"
+}
+```
+
+Reglas de ajuste:
+
+- `quantity` no puede ser 0.
+- Las notas son obligatorias.
+- Si `quantity` es negativo, no puede dejar stock menor a 0.
+- Inserta `movement_type = adjustment` con la cantidad indicada.
 
 ## Orders
 

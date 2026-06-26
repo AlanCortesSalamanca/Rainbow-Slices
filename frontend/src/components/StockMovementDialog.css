@@ -1,0 +1,56 @@
+.stock-movement-dialog {
+  align-items: center;
+  background: rgba(50, 32, 35, 0.36);
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  left: 0;
+  padding: 1rem;
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: 20;
+}
+
+.stock-movement-dialog__panel {
+  background: var(--color-white);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-strong);
+  display: grid;
+  gap: 1rem;
+  max-width: 520px;
+  padding: 1.25rem;
+  width: min(100%, 520px);
+}
+
+.stock-movement-dialog__panel h3,
+.stock-movement-dialog__panel p {
+  margin: 0;
+}
+
+.stock-movement-dialog__panel h3 {
+  color: var(--color-wine-dark);
+}
+
+.stock-movement-dialog__actions {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: flex-end;
+}
+
+.stock-movement-dialog__error,
+.stock-movement-dialog__warning {
+  background: #fff0f1;
+  border-radius: var(--radius-md);
+  color: #8d2631;
+  font-weight: 800;
+  padding: 0.75rem;
+}
+
+.stock-movement-dialog__info {
+  background: var(--color-mint);
+  border-radius: var(--radius-md);
+  color: #244632;
+  font-weight: 800;
+  padding: 0.75rem;
+}

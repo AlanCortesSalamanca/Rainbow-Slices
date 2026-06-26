@@ -6,6 +6,7 @@ import { ExpensesPage } from '../pages/ExpensesPage';
 import { FinishedInventoryPage } from '../pages/FinishedInventoryPage';
 import { IngredientFormPage } from '../pages/IngredientFormPage';
 import { IngredientsPage } from '../pages/IngredientsPage';
+import { InventoryProductDetailPage } from '../pages/InventoryProductDetailPage';
 import { OrderDetailPage } from '../pages/OrderDetailPage';
 import { OrderFormPage } from '../pages/OrderFormPage';
 import { OrdersPage } from '../pages/OrdersPage';
@@ -39,7 +40,9 @@ export function AppRoutes() {
       <Route path="/ingredients/:id/edit" element={protectedPage(<IngredientFormPage />)} />
       <Route path="/recipes" element={protectedPage(<RecipesPage />)} />
       <Route path="/production" element={protectedPage(<ProductionPage />)} />
+      <Route path="/inventory" element={<Navigate to="/inventory/finished" replace />} />
       <Route path="/inventory/finished" element={protectedPage(<FinishedInventoryPage />)} />
+      <Route path="/inventory/finished/:productId" element={protectedPage(<InventoryProductDetailPage />)} />
       <Route path="/orders" element={protectedPage(<OrdersPage />)} />
       <Route path="/orders/new" element={protectedPage(<OrderFormPage />)} />
       <Route path="/orders/:id" element={protectedPage(<OrderDetailPage />)} />

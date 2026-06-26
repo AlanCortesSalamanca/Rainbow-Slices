@@ -52,7 +52,7 @@ export function OrderFormPage() {
   async function loadData() {
     const [nextProducts, nextStock, nextDeliveryPoints] = await Promise.all([
       productsService.list(),
-      inventoryService.finished(),
+      inventoryService.getFinishedInventory(),
       deliveryPointsService.list()
     ]);
 

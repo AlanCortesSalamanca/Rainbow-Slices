@@ -27,6 +27,13 @@ Rainbow Slices Admin es una aplicación privada para administrar operación inte
 - Productos `custom` pueden tener precio manual por cotización.
 - Los gastos de ingredientes se generan con `add_ingredient_stock`.
 - No se registra merma como gasto; solo descuenta inventario terminado.
+- El stock terminado actual se calcula sumando movimientos de `finished_inventory_movements` por producto.
+- `production_output` aumenta stock por producción.
+- `reserved` reduce stock disponible al crear pedido.
+- `unreserved` regresa stock reservado al cancelar o antes de registrar venta al entregar.
+- `sold` reduce stock por venta final al entregar.
+- `waste` reduce stock por merma y exige stock suficiente.
+- `adjustment` permite corrección manual positiva o negativa; las notas son obligatorias y no puede dejar stock negativo.
 - Pedidos mayores a $300 MXN requieren anticipo antes de confirmar.
 - El anticipo sugerido es 50% del total y debe ser editable.
 - Si no hay stock, el pedido puede crearse y queda marcado como `requires_production`.
@@ -56,3 +63,11 @@ Rainbow Slices Admin es una aplicación privada para administrar operación inte
 - El detalle de pedido muestra cliente, entrega, productos, pago y acciones permitidas.
 - Las acciones inválidas no se muestran para estados finales.
 - El backend valida transiciones y reglas de anticipo; el frontend solo guía la operación.
+
+## Operación De Inventario Terminado
+
+- La lista de inventario muestra producto, imagen, presentación, precio, unidades por producción, stock actual y estado visual.
+- Estados visuales: disponible si stock es mayor a 0, agotado si stock es 0 y revisar si stock es negativo.
+- El detalle del producto muestra resumen acumulado de producción, reservas, liberaciones, ventas, merma, ajustes y stock actual.
+- La tabla de movimientos permite filtrar por tipo, fecha, pedido relacionado y producción relacionada.
+- Merma y ajuste manual requieren confirmación desde frontend y validación final en backend.
