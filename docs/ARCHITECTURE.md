@@ -100,6 +100,14 @@ El backend valida transiciones de estado de pedido en `orders.service`. El front
 - Las rutas administrativas (`/products`, `/orders`, `/inventory`, etc.) siguen envueltas en `ProtectedRoute` y `AppLayout`.
 - Los componentes públicos viven separados bajo `components/public` para no acoplar la landing con el panel admin.
 
+## Deploy
+
+- Vercel despliega el frontend estático desde `frontend/dist` usando `vercel.json` en la raíz del monorepo.
+- React Router usa rewrites a `index.html` para que rutas públicas y admin funcionen al refrescar navegador.
+- El backend Express requiere un runtime Node.js aparte y debe exponer una URL HTTPS configurada en `VITE_API_URL`.
+- El backend valida CORS con `CORS_ORIGIN`; puede recibir múltiples dominios separados por coma para producción y previews.
+- Las variables `SUPABASE_SERVICE_ROLE_KEY` y `SUPABASE_STORAGE_BUCKET` solo viven en el backend desplegado, nunca en Vercel frontend.
+
 ## Convenciones De Archivos
 
 - Componentes React en PascalCase y extensión `.tsx`.

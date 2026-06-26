@@ -9,6 +9,8 @@ import { env } from './config/env';
 
 export const app = express();
 
+const allowedOrigins = env.CORS_ORIGIN.split(',').map((origin) => origin.trim()).filter(Boolean);
+
 const apiLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,
   limit: 300,
@@ -17,7 +19,7 @@ const apiLimiter = rateLimit({
 });
 
 app.use(helmet());
-app.use(cors({ origin: env.CORS_ORIGIN }));
+app.use(cors({ origin: allowedOrigins.length > 1 ? allowedOrigins : allowedOrigins[0] }));
 app.use(express.json());
 
 app.get('/health', (_req, res) => {

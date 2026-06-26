@@ -128,6 +128,37 @@ Notas de seguridad:
 - El frontend guarda la URL pública devuelta en `products.image_url`.
 - Para imágenes públicas de productos, se recomienda un bucket público como `rainbaw-slices-web`.
 
+## Deploy En Vercel
+
+El archivo `vercel.json` en la raíz despliega solo el frontend React/Vite:
+
+- Install command: `npm --prefix frontend install`
+- Build command: `npm --prefix frontend run build`
+- Output directory: `frontend/dist`
+- Rewrites configurados para React Router y rutas como `/login`, `/products` o `/orders`.
+
+Variables requeridas en Vercel:
+
+```env
+VITE_API_URL=https://tu-backend.com/api
+VITE_SUPABASE_URL=https://tu-project-ref.supabase.co
+VITE_SUPABASE_ANON_KEY=tu-anon-key
+```
+
+El backend Express no queda desplegado por Vercel con esta configuración. Debe estar publicado en un servicio Node.js compatible y su URL debe configurarse en `VITE_API_URL`.
+
+Variables requeridas en el backend desplegado:
+
+```env
+NODE_ENV=production
+CORS_ORIGIN=https://tu-app.vercel.app,https://tu-dominio.com
+SUPABASE_URL=https://tu-project-ref.supabase.co
+SUPABASE_SERVICE_ROLE_KEY=tu-service-role-key
+SUPABASE_STORAGE_BUCKET=rainbaw-slices-web
+```
+
+`CORS_ORIGIN` acepta varios orígenes separados por coma para permitir el dominio de Vercel y un dominio personalizado.
+
 ## Correr Frontend Manualmente
 
 ```bash
