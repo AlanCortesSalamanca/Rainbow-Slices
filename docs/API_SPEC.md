@@ -127,6 +127,14 @@ Si el producto no tiene receta, `production_mode` será `manual` y no se descuen
 - `POST /orders/:id/deliver`
 - `POST /orders/:id/cancel`
 
+Query params opcionales para `GET /orders`:
+
+- `status`
+- `payment_status`
+- `delivery_date`
+- `delivery_point_id`
+- `search`
+
 Payload de creación:
 
 ```json
@@ -151,6 +159,32 @@ Payload de creación:
 ```
 
 Al crear pedido, el backend valida stock y crea movimientos `reserved`. Si el stock no alcanza, responde `400` y no crea pedido parcial.
+
+Transiciones de estado:
+
+- `pending` a `confirmed`
+- `confirmed` a `in_preparation`
+- `in_preparation` a `ready`
+- `ready` se entrega con `POST /orders/:id/deliver`
+
+`PATCH /orders/:id/status` no permite marcar `delivered` ni `cancelled`; esas acciones usan endpoints específicos.
+
+Reglas de anticipo:
+
+- Si `total > 300`, no se permite confirmar sin `deposit_paid > 0`.
+- Si `deposit_paid > 0` y es menor al total, `payment_status = deposit_paid`.
+- Si `deposit_paid >= total`, `payment_status = paid`.
+
+`PUT /orders/:id` permite actualizar datos básicos si el pedido no está `delivered` ni `cancelled`:
+
+- cliente
+- teléfono
+- fecha/hora/punto de entrega
+- costo de entrega
+- anticipo pagado
+- notas
+
+No edita items en esta etapa para no romper reservas de stock.
 
 ## Delivery Points
 

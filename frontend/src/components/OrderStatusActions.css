@@ -1,0 +1,17 @@
+.order-actions {
+  background: var(--color-pink-soft);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 1.2rem;
+}
+
+.order-actions h3 {
+  color: var(--color-wine-dark);
+  margin: 0 0 1rem;
+}
+
+.order-actions__buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}

@@ -1,6 +1,7 @@
 import { z } from 'zod';
 
 export const orderStatusSchema = z.enum(['pending', 'confirmed', 'in_preparation', 'ready', 'delivered', 'cancelled']);
+export const orderPaymentStatusSchema = z.enum(['unpaid', 'deposit_paid', 'paid', 'refunded', 'cancelled_no_refund']);
 
 const orderItemSchema = z.object({
   product_id: z.string().uuid(),
@@ -27,8 +28,15 @@ export const orderCreateSchema = z.object({
   items: z.array(orderItemSchema).min(1)
 });
 
-export const orderUpdateSchema = orderCreateSchema.partial().extend({
-  items: z.array(orderItemSchema).optional()
+export const orderUpdateSchema = z.object({
+  customer_name: z.string().min(2).optional(),
+  customer_phone: z.string().min(8).optional(),
+  delivery_date: z.string().min(10).optional(),
+  delivery_time: z.enum(['11:00', '16:00']).optional(),
+  delivery_point_id: z.string().uuid().optional(),
+  delivery_fee: z.number().nonnegative().optional(),
+  deposit_paid: z.number().nonnegative().optional(),
+  notes: z.string().nullable().optional()
 });
 
 export const orderStatusUpdateSchema = z.object({
@@ -38,4 +46,12 @@ export const orderStatusUpdateSchema = z.object({
 
 export const orderCancelSchema = z.object({
   notes: z.string().optional()
+});
+
+export const orderListQuerySchema = z.object({
+  status: orderStatusSchema.optional(),
+  payment_status: orderPaymentStatusSchema.optional(),
+  delivery_date: z.string().optional(),
+  delivery_point_id: z.string().uuid().optional(),
+  search: z.string().optional()
 });

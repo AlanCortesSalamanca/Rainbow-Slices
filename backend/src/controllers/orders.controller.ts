@@ -2,8 +2,8 @@ import { ordersService } from '../services/orders.service';
 import { asyncHandler } from '../utils/asyncHandler';
 
 export const ordersController = {
-  list: asyncHandler(async (_req, res) => {
-    const orders = await ordersService.list();
+  list: asyncHandler(async (req, res) => {
+    const orders = await ordersService.list(req.query);
     res.json(orders);
   }),
 

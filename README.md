@@ -130,6 +130,17 @@ Ejecuta los archivos de `database/migrations` en orden ascendente desde el SQL e
 6. Si se cancela antes de entregar, el backend libera reserva con `unreserved`.
 7. Si se entrega, el backend registra `unreserved` y `sold` para mantener historial sin doble descuento, y genera ingreso automático.
 
+Estados permitidos de pedido:
+
+- `pending` -> `confirmed`
+- `confirmed` -> `in_preparation`
+- `in_preparation` -> `ready`
+- `ready` -> entrega mediante acción `Marcar entregado`
+- `pending`, `confirmed`, `in_preparation`, `ready` pueden cancelarse
+- `delivered` y `cancelled` son estados finales
+
+Pedidos mayores a $300 MXN requieren anticipo antes de confirmarse.
+
 ## Estructura
 
 ```text

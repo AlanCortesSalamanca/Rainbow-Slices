@@ -1,4 +1,5 @@
 import type { OrderStatus, PaymentStatus, PresentationType } from './common.types';
+import type { DeliveryPoint } from './delivery.types';
 
 export interface OrderItem {
   id: string;
@@ -35,4 +36,28 @@ export interface Order {
   created_at: string;
   updated_at: string;
   order_items?: OrderItem[];
+  delivery_points?: DeliveryPoint;
+  inventory_movements?: Array<{
+    id: string;
+    movement_type: string;
+    quantity: number;
+    related_order_id?: string | null;
+    related_order_item_id?: string | null;
+    created_at: string;
+  }>;
+  income_records?: Array<{
+    id: string;
+    amount: number;
+    income_date: string;
+    source: string;
+    concept: string;
+  }>;
+}
+
+export interface OrderListFilters {
+  status?: OrderStatus | '';
+  payment_status?: PaymentStatus | '';
+  delivery_date?: string;
+  delivery_point_id?: string;
+  search?: string;
 }

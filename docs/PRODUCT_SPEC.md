@@ -35,6 +35,9 @@ Rainbow Slices Admin es una aplicación privada para administrar operación inte
 - Al crear pedido se inserta `reserved -cantidad`.
 - Al cancelar pedido no entregado se inserta `unreserved +cantidad`.
 - Al entregar pedido se inserta `unreserved +cantidad` y `sold -cantidad`; el stock no se descuenta doble.
+- Flujo de estados permitido: `pending -> confirmed -> in_preparation -> ready -> delivered`.
+- `cancelled` y `delivered` son estados finales.
+- Pedidos mayores a $300 MXN requieren anticipo para poder confirmarse.
 
 ## Flujos Principales
 
@@ -46,3 +49,10 @@ Rainbow Slices Admin es una aplicación privada para administrar operación inte
 6. Confirmar pedido validando anticipo si aplica.
 7. Entregar pedido para marcar pago e ingreso automático.
 8. Revisar reportes por periodo.
+
+## Operación De Pedidos
+
+- La lista de pedidos permite buscar por cliente o teléfono y filtrar por estado, pago, fecha y punto de entrega.
+- El detalle de pedido muestra cliente, entrega, productos, pago y acciones permitidas.
+- Las acciones inválidas no se muestran para estados finales.
+- El backend valida transiciones y reglas de anticipo; el frontend solo guía la operación.

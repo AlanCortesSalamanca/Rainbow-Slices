@@ -7,11 +7,21 @@ export class OrdersRepository extends BaseRepository {
     super('orders');
   }
 
-  async listWithDeliveryPoint() {
-    const { data, error } = await supabase
+  async listWithDeliveryPoint(filters: Record<string, unknown> = {}) {
+    let query = supabase
       .from('orders')
-      .select('*, delivery_points(name)')
-      .order('created_at', { ascending: false });
+      .select('*, delivery_points(id, name)');
+
+    if (filters.status) query = query.eq('status', filters.status);
+    if (filters.payment_status) query = query.eq('payment_status', filters.payment_status);
+    if (filters.delivery_date) query = query.eq('delivery_date', filters.delivery_date);
+    if (filters.delivery_point_id) query = query.eq('delivery_point_id', filters.delivery_point_id);
+    if (filters.search) {
+      const search = String(filters.search).replace(/[%_,]/g, '');
+      query = query.or(`customer_name.ilike.%${search}%,customer_phone.ilike.%${search}%`);
+    }
+
+    const { data, error } = await query;
 
     if (error) throw new ApiError(500, error.message, error);
     return data;
@@ -25,6 +35,33 @@ export class OrdersRepository extends BaseRepository {
       .single();
 
     if (error) throw new ApiError(404, error.message, error);
+    const [movements, incomeRecords] = await Promise.all([
+      this.listInventoryMovementsForOrder(id),
+      this.listIncomeRecordsForOrder(id)
+    ]);
+
+    return { ...data, inventory_movements: movements, income_records: incomeRecords };
+  }
+
+  async listInventoryMovementsForOrder(orderId: string) {
+    const { data, error } = await supabase
+      .from('finished_inventory_movements')
+      .select('*')
+      .eq('related_order_id', orderId)
+      .order('created_at', { ascending: true });
+
+    if (error) throw new ApiError(500, error.message, error);
+    return data;
+  }
+
+  async listIncomeRecordsForOrder(orderId: string) {
+    const { data, error } = await supabase
+      .from('income_records')
+      .select('*')
+      .eq('order_id', orderId)
+      .order('created_at', { ascending: true });
+
+    if (error) throw new ApiError(500, error.message, error);
     return data;
   }
 

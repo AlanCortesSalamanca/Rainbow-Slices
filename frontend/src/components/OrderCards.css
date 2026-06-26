@@ -1,0 +1,80 @@
+.order-card {
+  background: rgba(255, 255, 255, 0.86);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-soft);
+  padding: 1.2rem;
+}
+
+.order-card h3 {
+  color: var(--color-wine-dark);
+  margin: 0 0 1rem;
+}
+
+.order-card--hero {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.order-card--hero h3 {
+  font-size: 1.8rem;
+  margin-bottom: 0.3rem;
+}
+
+.order-card--hero p {
+  color: #765d55;
+  margin: 0;
+}
+
+.order-card__eyebrow {
+  color: var(--color-wine);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.order-card__badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  justify-content: flex-end;
+}
+
+.order-card__grid {
+  display: grid;
+  gap: 0.9rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin: 0;
+}
+
+.order-card__wide {
+  grid-column: 1 / -1;
+}
+
+.order-card dt {
+  color: #765d55;
+  font-size: 0.82rem;
+  font-weight: 800;
+  margin-bottom: 0.2rem;
+  text-transform: uppercase;
+}
+
+.order-card dd {
+  color: var(--color-coffee);
+  font-weight: 700;
+  margin: 0;
+}
+
+@media (max-width: 760px) {
+  .order-card--hero {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .order-card__grid {
+    grid-template-columns: 1fr;
+  }
+}

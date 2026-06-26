@@ -60,6 +60,16 @@
 - `cancel_order_with_stock_release`: cancela pedido no entregado y libera stock reservado.
 - `recalculate_order_totals`: recalcula subtotal, total, anticipo sugerido y saldo.
 - `mark_order_delivered`: libera reserva, registra venta, marca entregado/pagado y crea ingreso sin duplicarlo.
+
+## Pedidos E Inventario
+
+- `orders.status` controla el flujo operativo.
+- `orders.payment_status` controla el estado de pago.
+- `order_items` conserva nombre, presentación y precio para historial.
+- `finished_inventory_movements.related_order_id` y `related_order_item_id` vinculan reservas, liberaciones y ventas con el pedido.
+- Crear pedido genera `reserved` negativo.
+- Cancelar pedido no entregado genera `unreserved` positivo.
+- Entregar pedido genera `unreserved` positivo y `sold` negativo.
 - `set_updated_at`: actualiza `updated_at`.
 
 ## Triggers

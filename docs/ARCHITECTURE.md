@@ -50,6 +50,8 @@ El inventario terminado se calcula por movimientos en `finished_inventory_moveme
 
 Las operaciones críticas de producción y pedido usan funciones PostgreSQL para mantener atomicidad y evitar pedidos parcialmente creados.
 
+El backend valida transiciones de estado de pedido en `orders.service`. El frontend muestra acciones permitidas para UX, pero la autorización real de estados y anticipo ocurre en backend.
+
 ## Frontend
 
 - `pages`: pantallas administrativas.
