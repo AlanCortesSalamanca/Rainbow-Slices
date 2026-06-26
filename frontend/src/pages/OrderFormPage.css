@@ -1,0 +1,31 @@
+.order-form__picker {
+  align-items: end;
+  background: var(--color-pink-soft);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 1fr 160px auto;
+  padding: 1rem;
+}
+
+.order-form__totals {
+  background: var(--color-cream-strong);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: flex-end;
+  padding: 1rem;
+}
+
+.order-form__totals strong {
+  color: var(--color-wine-dark);
+}
+
+@media (max-width: 820px) {
+  .order-form__picker {
+    grid-template-columns: 1fr;
+  }
+}

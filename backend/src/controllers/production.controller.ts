@@ -8,7 +8,7 @@ export const productionController = {
   }),
 
   create: asyncHandler(async (req, res) => {
-    const batchId = await productionService.register(req.body);
-    res.status(201).json({ id: batchId });
+    const batch = await productionService.register(req.body);
+    res.status(201).json(batch);
   })
 };

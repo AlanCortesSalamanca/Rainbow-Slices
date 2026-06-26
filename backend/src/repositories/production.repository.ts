@@ -22,6 +22,17 @@ export class ProductionRepository {
     if (error) throw new ApiError(400, error.message, error);
     return data;
   }
+
+  async findById(id: string) {
+    const { data, error } = await supabase
+      .from('production_batches')
+      .select('*, products(id, name, presentation, pieces_per_batch)')
+      .eq('id', id)
+      .single();
+
+    if (error) throw new ApiError(404, error.message, error);
+    return data;
+  }
 }
 
 export const productionRepository = new ProductionRepository();

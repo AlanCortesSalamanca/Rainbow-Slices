@@ -3,9 +3,9 @@ import { z } from 'zod';
 export const orderStatusSchema = z.enum(['pending', 'confirmed', 'in_preparation', 'ready', 'delivered', 'cancelled']);
 
 const orderItemSchema = z.object({
-  product_id: z.string().uuid().optional(),
-  product_name: z.string().min(2),
-  presentation: z.enum(['slice', 'whole', 'mini', 'custom']),
+  product_id: z.string().uuid(),
+  product_name: z.string().min(2).optional(),
+  presentation: z.enum(['slice', 'whole', 'mini', 'custom']).optional(),
   quantity: z.number().int().positive(),
   unit_price: z.number().nonnegative(),
   is_custom_price: z.boolean().default(false),

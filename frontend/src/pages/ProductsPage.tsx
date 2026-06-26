@@ -40,7 +40,7 @@ export function ProductsPage() {
           columns={[
             { key: 'name', header: 'Producto', render: (row) => <Link to={`/products/${row.id}`}>{row.name}</Link> },
             { key: 'presentation', header: 'Presentación', render: (row) => row.presentation },
-            { key: 'pieces', header: 'Piezas/batch', render: (row) => row.pieces_per_batch },
+            { key: 'pieces', header: 'Unidades por producción', render: (row) => row.pieces_per_batch },
             { key: 'price', header: 'Precio', render: (row) => <MoneyText value={Number(row.sale_price)} /> },
             { key: 'status', header: 'Estado', render: (row) => <StatusBadge value={row.status} /> }
           ]}

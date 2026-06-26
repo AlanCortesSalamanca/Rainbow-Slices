@@ -22,6 +22,13 @@ export function AuthProvider({ children }: AuthProviderProps) {
       window.location.assign('/login');
     });
 
+    if (!isAuthConfigured) {
+      setLoading(false);
+      return () => {
+        setUnauthorizedHandler(null);
+      };
+    }
+
     authClient.auth
       .getSession()
       .then(({ data }) => {

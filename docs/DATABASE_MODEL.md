@@ -19,6 +19,7 @@
 - `product_recipes`: ingredientes requeridos por batch.
 - `ingredient_stock_movements`: movimientos de ingrediente.
 - `production_batches`: lotes producidos.
+- `production_batches.production_mode`: `recipe` si descuenta ingredientes por receta, `manual` si solo incrementa stock terminado.
 - `finished_inventory_movements`: movimientos de inventario terminado.
 - `customers`: clientes básicos.
 - `delivery_points`: puntos fijos de entrega.
@@ -54,8 +55,11 @@
 
 - `add_ingredient_stock`: crea gasto automático y movimiento positivo.
 - `register_production`: valida receta y stock, crea lote, descuenta ingredientes y genera stock terminado.
+- `register_production`: si hay receta descuenta ingredientes; si no hay receta permite producción manual con costo 0 y genera stock terminado.
+- `create_order_with_reservations`: crea pedido, items y reservas de stock en una operación.
+- `cancel_order_with_stock_release`: cancela pedido no entregado y libera stock reservado.
 - `recalculate_order_totals`: recalcula subtotal, total, anticipo sugerido y saldo.
-- `mark_order_delivered`: marca entregado, pagado, descuenta inventario vendido y crea ingreso sin duplicarlo.
+- `mark_order_delivered`: libera reserva, registra venta, marca entregado/pagado y crea ingreso sin duplicarlo.
 - `set_updated_at`: actualiza `updated_at`.
 
 ## Triggers

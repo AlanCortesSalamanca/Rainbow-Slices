@@ -1,8 +1,13 @@
 import { productsRepository } from '../repositories/products.repository';
 import { slugify } from '../utils/slugify';
 
-function piecesPerBatchForPresentation(presentation: unknown) {
-  return presentation === 'slice' ? 8 : 1;
+function normalizePiecesPerBatch(presentation: unknown, piecesPerBatch: unknown) {
+  if (presentation !== 'slice') {
+    return 1;
+  }
+
+  const normalized = Number(piecesPerBatch);
+  return Number.isInteger(normalized) && normalized > 0 ? normalized : 8;
 }
 
 export class ProductsService {
@@ -41,21 +46,23 @@ export class ProductsService {
     return productsRepository.create({
       ...payload,
       slug,
-      pieces_per_batch: piecesPerBatchForPresentation(presentation),
+      pieces_per_batch: normalizePiecesPerBatch(presentation, payload.pieces_per_batch),
       is_custom: payload.is_custom ?? presentation === 'custom'
     });
   }
 
   async update(id: string, payload: Record<string, unknown>) {
+    const currentProduct = await productsRepository.findById(id);
     const normalized = { ...payload };
+    const presentation = payload.presentation ?? currentProduct.presentation;
 
     if (payload.name || payload.slug) {
       const baseSlug = slugify(String(payload.slug ?? payload.name));
       normalized.slug = await this.getUniqueSlug(baseSlug, id);
     }
 
-    if (payload.presentation) {
-      normalized.pieces_per_batch = piecesPerBatchForPresentation(payload.presentation);
+    if (payload.presentation || payload.pieces_per_batch !== undefined) {
+      normalized.pieces_per_batch = normalizePiecesPerBatch(presentation, payload.pieces_per_batch ?? currentProduct.pieces_per_batch);
     }
 
     return productsRepository.update(id, normalized);

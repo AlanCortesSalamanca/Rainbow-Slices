@@ -120,6 +120,16 @@ Con los scripts raíz, la API quedará disponible en `http://localhost:3000/api`
 
 Ejecuta los archivos de `database/migrations` en orden ascendente desde el SQL editor de Supabase o usando tu flujo de migraciones preferido.
 
+## Flujo Operativo MVP
+
+1. Crear productos activos. Si el producto es por rebanada, configura `Unidades generadas por producción` con las rebanadas reales que genera un cheesecake.
+2. Registrar producción desde `Producción`. Si el producto no tiene receta, se permite producción manual sin descontar ingredientes y se incrementa stock terminado.
+3. Ver stock en `Inventario terminado`.
+4. Crear pedidos seleccionando productos activos con stock disponible.
+5. Al guardar un pedido, el backend reserva stock con movimiento `reserved` y el stock baja inmediatamente.
+6. Si se cancela antes de entregar, el backend libera reserva con `unreserved`.
+7. Si se entrega, el backend registra `unreserved` y `sold` para mantener historial sin doble descuento, y genera ingreso automático.
+
 ## Estructura
 
 ```text

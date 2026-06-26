@@ -39,6 +39,17 @@ El backend también aplica headers de seguridad con `helmet` y rate limiting bá
 - `auth.middleware`: valida JWT de Supabase y autoriza solo usuarios admin.
 - `utils`: helpers compartidos.
 
+## Inventario Y Pedidos
+
+El inventario terminado se calcula por movimientos en `finished_inventory_movements`.
+
+- Producción crea `production_output` positivo.
+- Pedido crea `reserved` negativo y baja stock disponible.
+- Cancelación crea `unreserved` positivo y regresa stock reservado.
+- Entrega crea `unreserved` positivo y `sold` negativo para mantener historial sin doble descuento.
+
+Las operaciones críticas de producción y pedido usan funciones PostgreSQL para mantener atomicidad y evitar pedidos parcialmente creados.
+
 ## Frontend
 
 - `pages`: pantallas administrativas.

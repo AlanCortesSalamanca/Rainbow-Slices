@@ -34,7 +34,7 @@ const initialForm: ProductFormState = {
   category: 'Cheesecake',
   description: '',
   presentation: 'slice',
-  pieces_per_batch: 9,
+  pieces_per_batch: 8,
   sale_price: 0,
   image_url: '',
   preparation_time_days: 1,
@@ -86,7 +86,7 @@ export function ProductFormPage() {
     setForm((currentForm) => ({
       ...currentForm,
       presentation: value,
-      pieces_per_batch: value === 'slice' ? 8 : 1
+      pieces_per_batch: value === 'slice' ? (currentForm.pieces_per_batch > 1 ? currentForm.pieces_per_batch : 8) : 1
     }));
   }
 
@@ -162,7 +162,18 @@ export function ProductFormPage() {
             <option value="custom">Personalizado</option>
           </SelectInput>
         </FormField>
-        <FormField label="Piezas por batch" hint="Se calcula automáticamente: rebanada = 8, otras presentaciones = 1."><NumberInput name="pieces_per_batch" value={form.pieces_per_batch} min={1} readOnly /></FormField>
+        <FormField
+          label="Unidades generadas por producción"
+          hint={form.presentation === 'slice' ? 'Ejemplo: si este cheesecake se corta en 8 rebanadas, escribe 8.' : 'Para completo, mini o personalizado se genera 1 unidad por producción.'}
+        >
+          <NumberInput
+            name="pieces_per_batch"
+            value={form.pieces_per_batch}
+            min={1}
+            readOnly={form.presentation !== 'slice'}
+            onChange={(event) => updateField('pieces_per_batch', Number(event.target.value))}
+          />
+        </FormField>
         <FormField label="Precio de venta"><NumberInput name="sale_price" value={form.sale_price} min={0} step="0.01" onChange={(event) => updateField('sale_price', Number(event.target.value))} /></FormField>
         <FormField label="Imagen desde tu equipo" hint="Formatos permitidos: JPG, PNG, WEBP o GIF. Máximo 5 MB.">
           <input className="input" type="file" accept="image/jpeg,image/png,image/webp,image/gif" onChange={(event) => handleImageChange(event.target.files?.[0])} />

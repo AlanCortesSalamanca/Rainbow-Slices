@@ -5,8 +5,9 @@ export class ProductionService {
     return productionRepository.list();
   }
 
-  register(payload: { product_id: string; batches_quantity: number; notes?: string }) {
-    return productionRepository.register(payload.product_id, payload.batches_quantity, payload.notes);
+  async register(payload: { product_id: string; batches_quantity: number; notes?: string }) {
+    const batchId = await productionRepository.register(payload.product_id, payload.batches_quantity, payload.notes);
+    return productionRepository.findById(String(batchId));
   }
 }
 

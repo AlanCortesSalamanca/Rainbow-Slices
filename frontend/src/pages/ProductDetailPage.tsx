@@ -34,7 +34,7 @@ export function ProductDetailPage() {
         <p><strong>Estado:</strong> <StatusBadge value={detail.product.status} /></p>
         <p><strong>Presentación:</strong> {detail.product.presentation}</p>
         <p><strong>Precio:</strong> <MoneyText value={Number(detail.product.sale_price)} /></p>
-        <p><strong>Piezas por batch:</strong> {detail.product.pieces_per_batch}</p>
+        <p><strong>Unidades por producción:</strong> {detail.product.pieces_per_batch}</p>
         <p><strong>Costo batch estimado:</strong> <MoneyText value={Number(detail.recipeCost?.batch_cost ?? 0)} /></p>
         <p><strong>Ganancia estimada:</strong> <MoneyText value={Number(detail.recipeCost?.estimated_profit ?? 0)} /></p>
         <p><strong>Puede preparar:</strong> {detail.availability?.can_prepare_one_batch ? 'Sí' : 'No'}</p>

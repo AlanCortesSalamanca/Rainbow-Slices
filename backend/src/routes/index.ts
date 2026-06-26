@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import { requireAdminAuth } from '../middlewares/auth.middleware';
 import { authRouter } from './auth.routes';
+import { deliveryPointsRouter } from './deliveryPoints.routes';
 import { expensesRouter } from './expenses.routes';
 import { ingredientsRouter } from './ingredients.routes';
 import { inventoryRouter } from './inventory.routes';
@@ -21,6 +22,7 @@ apiRouter.use('/ingredients', ingredientsRouter);
 apiRouter.use('/production', productionRouter);
 apiRouter.use('/inventory', inventoryRouter);
 apiRouter.use('/orders', ordersRouter);
+apiRouter.use('/delivery-points', deliveryPointsRouter);
 apiRouter.use('/expenses', expensesRouter);
 apiRouter.use('/reports', reportsRouter);
 apiRouter.use('/uploads', uploadsRouter);

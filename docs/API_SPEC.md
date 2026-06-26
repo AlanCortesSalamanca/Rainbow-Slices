@@ -95,6 +95,21 @@ Payload:
 }
 ```
 
+Respuesta de creación:
+
+```json
+{
+  "id": "uuid",
+  "product_id": "uuid",
+  "batches_quantity": 1,
+  "units_produced": 9,
+  "production_mode": "manual",
+  "estimated_total_cost": 0
+}
+```
+
+Si el producto no tiene receta, `production_mode` será `manual` y no se descuentan ingredientes.
+
 ## Inventory
 
 - `GET /inventory/finished`
@@ -134,6 +149,12 @@ Payload de creación:
   ]
 }
 ```
+
+Al crear pedido, el backend valida stock y crea movimientos `reserved`. Si el stock no alcanza, responde `400` y no crea pedido parcial.
+
+## Delivery Points
+
+- `GET /delivery-points`: lista puntos activos de entrega.
 
 ## Expenses
 

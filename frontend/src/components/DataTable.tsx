@@ -4,7 +4,7 @@ import './DataTable.css';
 export interface DataTableColumn<T> {
   key: string;
   header: string;
-  render: (row: T) => ReactNode;
+  render: (row: T, rowIndex: number) => ReactNode;
 }
 
 interface DataTableProps<T> {
@@ -25,9 +25,9 @@ export function DataTable<T>({ columns, data }: DataTableProps<T>) {
         </thead>
         <tbody>
           {data.map((row, rowIndex) => (
-            <tr key={rowIndex}>
+            <tr key={String((row as Record<string, unknown>).id ?? rowIndex)}>
               {columns.map((column) => (
-                <td key={column.key}>{column.render(row)}</td>
+                <td key={column.key}>{column.render(row, rowIndex)}</td>
               ))}
             </tr>
           ))}

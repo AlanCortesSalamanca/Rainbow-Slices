@@ -2,9 +2,9 @@ import { ordersRepository } from '../repositories/orders.repository';
 import { ApiError } from '../utils/ApiError';
 
 interface OrderItemPayload {
-  product_id?: string;
-  product_name: string;
-  presentation: string;
+  product_id: string;
+  product_name?: string;
+  presentation?: string;
   quantity: number;
   unit_price: number;
   is_custom_price?: boolean;
@@ -36,7 +36,7 @@ export class OrdersService {
   }
 
   async create(payload: OrderPayload) {
-    const order = await ordersRepository.create({
+    const orderId = await ordersRepository.createWithReservations({
       customer_id: payload.customer_id ?? null,
       customer_name: payload.customer_name,
       customer_phone: payload.customer_phone,
@@ -45,25 +45,15 @@ export class OrdersService {
       delivery_point_id: payload.delivery_point_id,
       delivery_fee: payload.delivery_fee ?? 15,
       deposit_paid: payload.deposit_paid ?? 0,
-      requires_production: payload.requires_production ?? payload.items.some((item) => item.requires_production),
-      notes: payload.notes ?? null
-    });
-
-    const orderId = String(order.id);
-    await ordersRepository.createItems(
-      payload.items.map((item) => ({
-        order_id: orderId,
-        product_id: item.product_id ?? null,
-        product_name: item.product_name,
-        presentation: item.presentation,
+      notes: payload.notes ?? null,
+      items: payload.items.map((item) => ({
+        product_id: item.product_id,
         quantity: item.quantity,
         unit_price: item.unit_price,
-        line_total: item.quantity * item.unit_price,
         is_custom_price: item.is_custom_price ?? false,
-        requires_production: item.requires_production ?? false,
         notes: item.notes ?? null
       }))
-    );
+    });
 
     return ordersRepository.findWithItems(orderId);
   }
@@ -93,14 +83,8 @@ export class OrdersService {
   }
 
   async cancel(id: string, notes?: string) {
-    const order = await ordersRepository.findWithItems(id);
-    const afterProduction = ['in_preparation', 'ready'].includes(String(order.status)) || order.requires_production;
-
-    return ordersRepository.update(id, {
-      status: 'cancelled',
-      payment_status: afterProduction ? 'cancelled_no_refund' : 'refunded',
-      notes: notes ?? order.notes
-    });
+    await ordersRepository.cancelWithStockRelease(id, notes);
+    return ordersRepository.findWithItems(id);
   }
 }
 
