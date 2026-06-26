@@ -1,4 +1,6 @@
 import { Router } from 'express';
+import { requireAdminAuth } from '../middlewares/auth.middleware';
+import { authRouter } from './auth.routes';
 import { expensesRouter } from './expenses.routes';
 import { ingredientsRouter } from './ingredients.routes';
 import { inventoryRouter } from './inventory.routes';
@@ -11,6 +13,8 @@ import { uploadsRouter } from './uploads.routes';
 
 export const apiRouter = Router();
 
+apiRouter.use('/auth', authRouter);
+apiRouter.use(requireAdminAuth);
 apiRouter.use('/products', productsRouter);
 apiRouter.use('/products', recipesRouter);
 apiRouter.use('/ingredients', ingredientsRouter);

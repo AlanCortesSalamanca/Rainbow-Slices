@@ -1,6 +1,29 @@
 # API Spec
 
-Base URL local: `http://localhost:4000/api`.
+Base URL local: `http://localhost:3000/api`.
+
+Todos los endpoints administrativos requieren:
+
+```http
+Authorization: Bearer <access_token>
+```
+
+El token debe venir de Supabase Auth y pertenecer a un usuario con `role: "admin"` en `user_metadata` o `app_metadata`.
+
+## Auth
+
+- `GET /auth/me`: devuelve el usuario autenticado.
+
+Respuesta:
+
+```json
+{
+  "id": "uuid",
+  "email": "admin@example.com",
+  "role": "admin",
+  "name": "Administrador"
+}
+```
 
 ## Products
 
@@ -152,5 +175,7 @@ Restricciones:
 ## Errores Comunes
 
 - `400`: payload inválido, regla de negocio incumplida o RPC SQL rechazada.
+- `401`: token faltante, inválido o expirado.
+- `403`: usuario autenticado sin rol admin.
 - `404`: recurso no encontrado.
 - `500`: error inesperado de servidor o Supabase.

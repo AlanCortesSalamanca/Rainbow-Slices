@@ -28,10 +28,22 @@
   padding: 0.55rem 0.85rem;
 }
 
+.header__session {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  justify-content: flex-end;
+}
+
 @media (max-width: 640px) {
   .header {
     align-items: flex-start;
     flex-direction: column;
     gap: 0.75rem;
+  }
+
+  .header__session {
+    justify-content: flex-start;
   }
 }

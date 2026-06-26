@@ -54,6 +54,52 @@ cp backend/.env.example backend/.env
 
 El backend debe usar una llave segura para operaciones administrativas. No coloques credenciales reales en archivos versionados.
 
+También copia `frontend/.env.example` a `frontend/.env` y configura la URL de API y las credenciales públicas de Supabase Auth:
+
+```bash
+cp frontend/.env.example frontend/.env
+```
+
+## Autenticación administrativa
+
+1. Configurar `backend/.env`:
+
+- `SUPABASE_URL`
+- `SUPABASE_SERVICE_ROLE_KEY`
+- `ADMIN_EMAIL`
+- `ADMIN_PASSWORD`
+- `ADMIN_NAME`
+
+2. Configurar `frontend/.env`:
+
+- `VITE_API_URL`
+- `VITE_SUPABASE_URL`
+- `VITE_SUPABASE_ANON_KEY`
+
+3. Crear admin inicial:
+
+```bash
+npm run create:admin
+```
+
+4. Levantar app:
+
+```bash
+npm run dev
+```
+
+5. Abrir login:
+
+```text
+http://localhost:5173/login
+```
+
+Notas de seguridad:
+
+- `SUPABASE_SERVICE_ROLE_KEY` nunca debe ir en frontend.
+- `VITE_SUPABASE_ANON_KEY` sí puede vivir en frontend porque es la key pública para Supabase Auth.
+- No commitear `.env` reales.
+
 ## Correr Frontend Manualmente
 
 ```bash

@@ -1,15 +1,16 @@
 import type { ErrorRequestHandler } from 'express';
 import { ZodError } from 'zod';
+import { env } from '../config/env';
 import { ApiError } from '../utils/ApiError';
 
 export const errorHandler: ErrorRequestHandler = (error, _req, res, _next) => {
   if (error instanceof ZodError) {
-    res.status(400).json({ message: 'Validation error', issues: error.issues });
+    res.status(400).json(env.NODE_ENV === 'production' ? { message: 'Validation error' } : { message: 'Validation error', issues: error.issues });
     return;
   }
 
   if (error instanceof ApiError) {
-    res.status(error.statusCode).json({ message: error.message, details: error.details });
+    res.status(error.statusCode).json(env.NODE_ENV === 'production' ? { message: error.message } : { message: error.message, details: error.details });
     return;
   }
 

@@ -14,7 +14,8 @@
     "typecheck": "npm run typecheck:backend && npm run typecheck:frontend",
     "typecheck:backend": "npm --prefix backend run typecheck",
     "typecheck:frontend": "npm --prefix frontend run typecheck",
-    "audit:all": "npm --prefix backend audit --audit-level=moderate && npm --prefix frontend audit --audit-level=moderate"
+    "audit:all": "npm --prefix backend audit --audit-level=moderate && npm --prefix frontend audit --audit-level=moderate",
+    "create:admin": "npm --prefix backend run create:admin"
   },
   "devDependencies": {
     "concurrently": "^9.0.0"
