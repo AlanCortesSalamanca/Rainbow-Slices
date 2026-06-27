@@ -9,6 +9,9 @@
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "create:admin": "tsx src/scripts/create-admin-user.ts"
   },
+  "engines": {
+    "node": "22.x"
+  },
   "dependencies": {
     "@supabase/supabase-js": "^2.45.4",
     "cors": "^2.8.5",
