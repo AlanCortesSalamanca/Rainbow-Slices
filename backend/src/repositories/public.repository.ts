@@ -8,8 +8,8 @@ export class PublicRepository {
         .from('products')
         .select('id, name, slug, description, presentation, sale_price, image_url, created_at')
         .eq('status', 'active')
-        .eq('category', 'Cheesecake')
-        .neq('is_custom', true)
+        .ilike('category', 'cheesecake')
+        .or('is_custom.is.false,is_custom.is.null')
         .order('name'),
       supabase.from('vw_product_stock').select('product_id, current_stock')
     ]);

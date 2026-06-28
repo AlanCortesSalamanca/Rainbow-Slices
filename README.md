@@ -179,6 +179,8 @@ Con los scripts raíz, la API quedará disponible en `http://localhost:3000/api`
 
 Ejecuta los archivos de `database/migrations` en orden ascendente desde el SQL editor de Supabase o usando tu flujo de migraciones preferido.
 
+Nota de seguridad: `database/migrations/010_clear_business_data.sql` es una migración histórica destructiva que ejecuta `TRUNCATE`. No debe repetirse manualmente en producción. Para limpieza controlada de bases locales o QA descartables, usa `database/manual/clear_business_data.sql` solo después de respaldar datos y confirmar que no estás conectado a producción.
+
 ## Flujo Operativo MVP
 
 1. Crear productos activos. Si el producto es por rebanada, configura `Unidades generadas por producción` con las rebanadas reales que genera un cheesecake.

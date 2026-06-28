@@ -64,6 +64,11 @@
 - `register_finished_inventory_waste`: valida producto, stock suficiente y crea movimiento `waste` negativo de forma atómica.
 - `register_finished_inventory_adjustment`: valida producto, nota obligatoria, stock final no negativo y crea movimiento `adjustment` de forma atómica.
 
+## Migraciones Destructivas
+
+- `010_clear_business_data.sql` es histórica y destructiva porque ejecuta `TRUNCATE` sobre datos de negocio. Se conserva para no reescribir historial de migraciones ya aplicado, pero no debe ejecutarse manualmente en producción.
+- La versión manual para entornos locales o QA descartables vive en `database/manual/clear_business_data.sql` e incluye advertencias explícitas.
+
 ## Pedidos E Inventario
 
 - `orders.status` controla el flujo operativo.
