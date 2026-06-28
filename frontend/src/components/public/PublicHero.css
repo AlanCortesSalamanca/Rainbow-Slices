@@ -1,51 +1,63 @@
 .public-hero {
-  align-items: center;
-  display: grid;
-  gap: 2rem;
-  grid-template-columns: minmax(0, 0.9fr) minmax(360px, 1.1fr);
-  margin: 0 auto;
+  background-image:
+    linear-gradient(90deg, rgba(43, 22, 19, 0.78) 0%, rgba(99, 0, 55, 0.48) 38%, rgba(99, 0, 55, 0.12) 68%, rgba(43, 22, 19, 0.04) 100%),
+    linear-gradient(0deg, rgba(43, 22, 19, 0.34), rgba(43, 22, 19, 0.02) 46%),
+    url('/brand/rainbow-slices-hero.png');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 2rem;
+  box-shadow: 0 28px 72px rgba(99, 0, 55, 0.18);
+  display: flex;
+  isolation: isolate;
+  margin: 1.2rem auto 0;
   max-width: 1180px;
-  min-height: 720px;
-  padding: 5rem 1.25rem 4rem;
+  min-height: 520px;
+  overflow: hidden;
+  padding: clamp(2.2rem, 5vw, 4.7rem) 1.4rem;
+  position: relative;
 }
 
 .public-hero__content {
+  max-width: 650px;
   position: relative;
   z-index: 1;
 }
 
 .public-hero__eyebrow {
-  background: rgba(255, 255, 255, 0.78);
-  border: 1px solid rgba(220, 191, 199, 0.8);
+  background: rgba(255, 248, 246, 0.16);
+  border: 1px solid rgba(255, 255, 255, 0.34);
   border-radius: 999px;
-  color: #880e4f;
+  color: #fff8e1;
   display: inline-flex;
   font-size: 0.76rem;
   font-weight: 800;
   letter-spacing: 0.12em;
-  margin: 0 0 1.2rem;
+  margin: 0 0 1rem;
   padding: 0.48rem 0.78rem;
   text-transform: uppercase;
 }
 
 .public-hero h1 {
-  color: #630037;
+  color: #ffffff;
   font-family: "Playfair Display", Georgia, serif;
-  font-size: clamp(3.5rem, 8vw, 7.4rem);
+  font-size: clamp(3.35rem, 7.4vw, 7rem);
   letter-spacing: -0.07em;
   line-height: 0.86;
   margin: 0;
+  text-shadow: 0 10px 38px rgba(43, 22, 19, 0.42);
 }
 
 .public-hero__subtitle {
-  color: #2b1613;
+  color: #fff8e1;
   font-size: clamp(1.25rem, 2vw, 1.55rem);
   font-weight: 800;
-  margin: 1.4rem 0 0.7rem;
+  margin: 1.1rem 0 0.55rem;
 }
 
 .public-hero__tagline {
-  color: #880e4f;
+  color: #ffcfdf;
   font-family: "Playfair Display", Georgia, serif;
   font-size: clamp(1.35rem, 2.4vw, 2.2rem);
   font-weight: 700;
@@ -53,10 +65,10 @@
 }
 
 .public-hero__text {
-  color: #564148;
+  color: rgba(255, 255, 255, 0.88);
   font-size: 1.05rem;
-  line-height: 1.8;
-  margin: 1.3rem 0 0;
+  line-height: 1.7;
+  margin: 1rem 0 0;
   max-width: 560px;
 }
 
@@ -64,60 +76,52 @@
   display: flex;
   flex-wrap: wrap;
   gap: 0.85rem;
-  margin-top: 2rem;
-}
-
-.public-hero__visual {
-  align-items: flex-end;
-  background-image: url('/brand/rainbow-slices-hero.png');
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: contain;
-  display: flex;
-  justify-content: flex-end;
-  min-height: 560px;
-  position: relative;
-}
-
-.public-hero__visual::before {
-  background:
-    radial-gradient(circle, rgba(255, 176, 204, 0.42), transparent 68%),
-    linear-gradient(135deg, rgba(255, 243, 199, 0.46), rgba(244, 220, 228, 0.42));
-  border-radius: 48% 52% 46% 54%;
-  content: '';
-  inset: 4rem 0 2rem 0;
-  position: absolute;
-  transform: rotate(-5deg);
-  z-index: -1;
+  margin-top: 1.45rem;
 }
 
 .public-hero__badge {
-  background: rgba(255, 255, 255, 0.88);
-  border: 1px solid rgba(220, 191, 199, 0.86);
+  background: rgba(255, 248, 246, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.72);
   border-radius: 999px;
-  box-shadow: 0 18px 44px rgba(62, 39, 35, 0.12);
+  bottom: 1.4rem;
+  box-shadow: 0 18px 44px rgba(62, 39, 35, 0.18);
   color: #630037;
   font-weight: 900;
-  margin: 0 1.5rem 4rem 0;
   padding: 0.8rem 1rem;
+  position: absolute;
+  right: 1.4rem;
+  z-index: 1;
+}
+
+.public-hero .public-button--primary {
+  background: #ffffff;
+  color: #630037;
+}
+
+.public-hero .public-button--secondary {
+  background: rgba(255, 248, 246, 0.16);
+  border: 1px solid rgba(255, 255, 255, 0.42);
+  color: #ffffff;
 }
 
 @media (max-width: 900px) {
   .public-hero {
-    grid-template-columns: 1fr;
-    min-height: auto;
-    padding-top: 3rem;
-  }
-
-  .public-hero__visual {
-    min-height: 360px;
-    order: -1;
+    background-image:
+      linear-gradient(90deg, rgba(43, 22, 19, 0.78) 0%, rgba(99, 0, 55, 0.48) 48%, rgba(43, 22, 19, 0.16) 100%),
+      linear-gradient(0deg, rgba(43, 22, 19, 0.34), rgba(43, 22, 19, 0.04) 48%),
+      url('/brand/rainbow-slices-hero.png');
+    min-height: 500px;
+    padding-bottom: 4.6rem;
   }
 }
 
 @media (max-width: 560px) {
   .public-hero {
-    padding: 2rem 1rem 3rem;
+    background-position: 58% center;
+    border-radius: 1.45rem;
+    margin-top: 0.8rem;
+    min-height: 520px;
+    padding: 2rem 1rem 4.5rem;
   }
 
   .public-hero__actions,
@@ -125,7 +129,9 @@
     width: 100%;
   }
 
-  .public-hero__visual {
-    min-height: 280px;
+  .public-hero__badge {
+    bottom: 1rem;
+    left: 1rem;
+    right: auto;
   }
 }

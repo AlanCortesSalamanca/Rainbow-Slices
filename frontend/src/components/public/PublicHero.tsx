@@ -18,9 +18,7 @@ export function PublicHero({ onOpenCart }: PublicHeroProps) {
           <a className="public-button public-button--secondary" href="#sabores">Ver sabores</a>
         </div>
       </div>
-      <div className="public-hero__visual" role="img" aria-label="Cheesecakes Rainbow Slices con decoración premium">
-        <div className="public-hero__badge">Pedidos con anticipación</div>
-      </div>
+      <div className="public-hero__badge">Pedidos con anticipación</div>
     </section>
   );
 }

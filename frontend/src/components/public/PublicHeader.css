@@ -19,8 +19,8 @@
   justify-content: space-between;
   margin: 0 auto;
   max-width: 1220px;
-  min-height: 78px;
-  padding: 0.75rem 1.25rem;
+  min-height: 72px;
+  padding: 0.55rem 1.25rem;
   width: 100%;
 }
 
@@ -38,8 +38,8 @@
 .public-header__brand img {
   border-radius: 50%;
   box-shadow: 0 8px 22px rgba(62, 39, 35, 0.1);
-  height: 48px;
-  width: 48px;
+  height: 44px;
+  width: 44px;
 }
 
 .public-header__links {
@@ -130,7 +130,7 @@
 
 @media (max-width: 520px) {
   .public-header__nav {
-    min-height: 132px;
+    min-height: 124px;
     padding: 0.65rem 0.85rem;
   }
 
