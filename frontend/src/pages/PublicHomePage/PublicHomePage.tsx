@@ -3,9 +3,10 @@ import { FlavorCard } from '../../components/public/FlavorCard';
 import { PublicFooter } from '../../components/public/PublicFooter';
 import { PublicHeader } from '../../components/public/PublicHeader';
 import { PublicHero } from '../../components/public/PublicHero';
+import { PublicCartDrawer } from '../../features/publicCart/PublicCartDrawer';
+import { PublicCartProvider, usePublicCart } from '../../features/publicCart/PublicCartContext';
 import { publicProductsService } from '../../services/publicProducts.service';
 import type { PublicProduct } from '../../types/public.types';
-import { generalWhatsAppLink } from '../../utils/whatsapp';
 import './PublicHomePage.css';
 
 const orderSteps = [
@@ -24,9 +25,18 @@ const benefits = [
 ];
 
 export function PublicHomePage() {
+  return (
+    <PublicCartProvider>
+      <PublicHomePageContent />
+    </PublicCartProvider>
+  );
+}
+
+function PublicHomePageContent() {
   const [products, setProducts] = useState<PublicProduct[]>([]);
   const [loadingProducts, setLoadingProducts] = useState(true);
   const [productsError, setProductsError] = useState('');
+  const { isOpen, openCart, totalItems } = usePublicCart();
 
   useEffect(() => {
     publicProductsService
@@ -38,10 +48,10 @@ export function PublicHomePage() {
 
   return (
     <main className="public-home">
-      <a className="public-home__skip-link" href="#inicio">Saltar al contenido</a>
+      <a className="public-home__skip-link" href="#sabores">Saltar a sabores</a>
       <PublicHeader />
 
-      <PublicHero />
+      <PublicHero onOpenCart={openCart} />
 
       <section className="public-section public-section--flavors" id="sabores">
         <div className="public-section__heading">
@@ -118,9 +128,15 @@ export function PublicHomePage() {
 
       <section className="public-home__final-cta" id="pedido">
         <p>¿Listo para probar tu rebanada favorita?</p>
-        <h2>Escríbenos por WhatsApp y aparta tu cheesecake con anticipación.</h2>
-        <a className="public-button public-button--primary" href={generalWhatsAppLink} target="_blank" rel="noreferrer">Pedir por WhatsApp</a>
+        <h2>Arma tu pedido con varios sabores y envíanos el resumen por WhatsApp.</h2>
+        <button type="button" className="public-button public-button--primary" onClick={openCart}>Abrir mi pedido</button>
       </section>
+
+      <button type="button" className="public-home__floating-cart" onClick={openCart} aria-expanded={isOpen} aria-controls="public-cart-drawer" aria-label={`Abrir mi pedido con ${totalItems} producto(s)`}>
+        Mi pedido <span>{totalItems}</span>
+      </button>
+
+      <PublicCartDrawer />
 
       <PublicFooter />
     </main>

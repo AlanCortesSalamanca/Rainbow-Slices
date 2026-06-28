@@ -38,12 +38,22 @@ La service role key de Supabase solo debe vivir en `backend/.env`. Nunca debe co
 
 - `/` muestra la landing pública de Rainbow Slices para clientes.
 - `/login` entra al panel administrativo privado.
-- Los botones de pedido abren WhatsApp con mensajes prellenados al número `2761274898`.
+- Los botones de pedido permiten agregar varios productos al carrito público y enviar el resumen por WhatsApp al número `2761274898`.
 - La sección “Elige tu sabor favorito” consume `GET /api/public/products` para mostrar productos activos reales.
 - El endpoint público solo devuelve datos seguros de cliente: nombre, descripción, presentación, precio, imagen y stock actual.
 - La vista pública no usa `AppLayout` administrativo ni muestra sidebar.
 - El panel administrativo sigue protegido detrás de `/login`.
 - Las tablas de Supabase tienen RLS habilitado; el frontend no consulta tablas directamente.
+
+## Carrito público por WhatsApp
+
+- La landing permite agregar varios sabores/productos a un carrito frontend-only.
+- El carrito guarda únicamente productos públicos y cantidades en `localStorage`; los datos del formulario no se persisten.
+- El carrito calcula subtotal, costo de entrega de `$15 MXN` y total estimado.
+- El cliente captura nombre, teléfono opcional, punto de entrega, horario y notas.
+- Al enviar, se abre WhatsApp con un resumen del pedido para que el negocio confirme disponibilidad y total final.
+- El carrito no crea pedidos automáticamente, no reserva stock, no procesa pagos y no usa Supabase directo para negocio.
+- Los productos sin stock pueden agregarse como “consultar disponibilidad”.
 
 ## Instalación Manual
 

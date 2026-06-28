@@ -146,7 +146,27 @@
   margin-bottom: 1rem;
 }
 
-.flavor-card a {
+.flavor-card button {
+  background: transparent;
+  border: 0;
   color: #880e4f;
+  cursor: pointer;
   font-weight: 900;
+  padding: 0;
+}
+
+.flavor-card button:focus-visible {
+  outline: 3px solid rgba(255, 176, 204, 0.68);
+  outline-offset: 4px;
+}
+
+.flavor-card__feedback {
+  background: #dff1df;
+  border-radius: 999px;
+  color: #244632;
+  display: inline-flex;
+  font-size: 0.76rem;
+  font-weight: 900;
+  margin-left: 0.75rem;
+  padding: 0.35rem 0.6rem;
 }

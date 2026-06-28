@@ -1,7 +1,10 @@
-import { generalWhatsAppLink } from '../../utils/whatsapp';
 import './PublicHero.css';
 
-export function PublicHero() {
+interface PublicHeroProps {
+  onOpenCart: () => void;
+}
+
+export function PublicHero({ onOpenCart }: PublicHeroProps) {
   return (
     <section className="public-hero" id="inicio">
       <div className="public-hero__content">
@@ -11,7 +14,7 @@ export function PublicHero() {
         <p className="public-hero__tagline">Una rebanada, un sabor diferente</p>
         <p className="public-hero__text">Haz tu pedido con 1 a 2 días de anticipación y disfruta tu sabor favorito en nuestros puntos de entrega.</p>
         <div className="public-hero__actions">
-          <a className="public-button public-button--primary" href={generalWhatsAppLink} target="_blank" rel="noreferrer">Pedir por WhatsApp</a>
+          <button type="button" className="public-button public-button--primary" onClick={onOpenCart}>Armar mi pedido</button>
           <a className="public-button public-button--secondary" href="#sabores">Ver sabores</a>
         </div>
       </div>

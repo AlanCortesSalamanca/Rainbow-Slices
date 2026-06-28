@@ -57,6 +57,19 @@ Rainbow Slices Admin es una aplicación privada para administrar operación inte
 7. Entregar pedido para marcar pago e ingreso automático.
 8. Revisar reportes por periodo.
 
+## Carrito Público Por WhatsApp
+
+- La landing pública permite agregar varios productos reales desde `GET /api/public/products` a un carrito temporal.
+- El carrito es frontend-only: no crea pedidos en base de datos, no reserva inventario y no procesa pagos.
+- Se permite incrementar, disminuir y eliminar productos.
+- Si `current_stock > 0`, la cantidad no debe superar el stock reportado.
+- Si `current_stock = 0`, el producto puede agregarse pero se marca como “consultar disponibilidad”.
+- El subtotal suma `quantity * sale_price`; productos con precio `0` se muestran como “Cotizar” y no rompen el cálculo.
+- El costo de entrega estimado es `$15 MXN` si hay productos en el carrito.
+- El formulario público pide nombre, punto de entrega y horario; teléfono y notas son opcionales.
+- El mensaje de WhatsApp incluye productos, cantidades, subtotales, punto, horario, costo de entrega, total estimado y notas.
+- El total final y disponibilidad se confirman manualmente por WhatsApp.
+
 ## Operación De Pedidos
 
 - La lista de pedidos permite buscar por cliente o teléfono y filtrar por estado, pago, fecha y punto de entrega.

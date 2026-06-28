@@ -1,6 +1,7 @@
+import { useEffect, useState } from 'react';
 import type { PresentationType } from '../../types/common.types';
 import type { PublicProduct } from '../../types/public.types';
-import { createWhatsAppLink } from '../../utils/whatsapp';
+import { usePublicCart } from '../../features/publicCart/PublicCartContext';
 import './FlavorCard.css';
 
 const presentationLabels: Record<PresentationType, string> = {
@@ -19,8 +20,21 @@ interface FlavorCardProps {
 }
 
 export function FlavorCard({ product }: FlavorCardProps) {
-  const link = createWhatsAppLink(`Hola, quiero hacer un pedido de Rainbow Slices. Me interesa: ${product.name}. ¿Me puedes dar disponibilidad?`);
+  const { addProduct } = usePublicCart();
+  const [feedback, setFeedback] = useState('');
   const isAvailable = product.current_stock > 0;
+
+  useEffect(() => {
+    if (!feedback) return;
+
+    const timeoutId = window.setTimeout(() => setFeedback(''), 1800);
+    return () => window.clearTimeout(timeoutId);
+  }, [feedback]);
+
+  function handleAddToCart() {
+    const result = addProduct(product);
+    setFeedback(result === 'max-stock' ? 'Llegaste al stock disponible' : 'Agregado al pedido');
+  }
 
   return (
     <article className="flavor-card">
@@ -36,8 +50,9 @@ export function FlavorCard({ product }: FlavorCardProps) {
         </div>
         <h3>{product.name}</h3>
         <p>{product.description || 'Cheesecake artesanal preparado con textura cremosa y sabor premium.'}</p>
-        {product.sale_price > 0 ? <strong className="flavor-card__price">{formatPrice(product.sale_price)}</strong> : null}
-        <a href={link} target="_blank" rel="noreferrer" aria-label={`Pedir ${product.name} por WhatsApp`}>Pedir este sabor</a>
+        {product.sale_price > 0 ? <strong className="flavor-card__price">{formatPrice(product.sale_price)}</strong> : <strong className="flavor-card__price">Cotizar</strong>}
+        <button type="button" onClick={handleAddToCart} aria-label={`Agregar ${product.name} al pedido`}>Agregar al pedido</button>
+        {feedback ? <span className="flavor-card__feedback" role="status">{feedback}</span> : null}
       </div>
     </article>
   );

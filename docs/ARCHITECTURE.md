@@ -95,10 +95,19 @@ El backend valida transiciones de estado de pedido en `orders.service`. El front
 - `/` renderiza `PublicHomePage` como landing pública para clientes.
 - La vista pública no usa `AppLayout`, no muestra sidebar y no requiere sesión.
 - La vista pública consume `GET /api/public/products` mediante un cliente público sin `Authorization` para mostrar sabores reales.
-- Los CTAs de pedido abren WhatsApp con mensajes prellenados.
+- Los CTAs de producto agregan items a un carrito público frontend-only y el checkout abre WhatsApp con un resumen del pedido.
 - `/login` conserva el acceso administrativo con Supabase Auth.
 - Las rutas administrativas (`/products`, `/orders`, `/inventory`, etc.) siguen envueltas en `ProtectedRoute` y `AppLayout`.
 - Los componentes públicos viven separados bajo `components/public` para no acoplar la landing con el panel admin.
+
+## Carrito Público
+
+- El carrito público vive en `frontend/src/features/publicCart`.
+- Usa estado React y persiste solo productos públicos/cantidades en `localStorage`.
+- No persiste datos personales del formulario.
+- No llama endpoints admin, no crea órdenes, no reserva inventario y no procesa pagos.
+- La única integración externa es el enlace `https://wa.me/...` generado con `encodeURIComponent`.
+- Los precios del carrito son estimados; el mensaje pide confirmación de disponibilidad y total final.
 
 ## Deploy
 

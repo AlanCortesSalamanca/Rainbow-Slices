@@ -1,0 +1,73 @@
+.checkout-whatsapp-form {
+  display: grid;
+  gap: 0.85rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.checkout-whatsapp-form__field {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.checkout-whatsapp-form__field--full,
+.checkout-whatsapp-form__error,
+.checkout-whatsapp-form__submit {
+  grid-column: 1 / -1;
+}
+
+.checkout-whatsapp-form label {
+  color: #630037;
+  font-size: 0.82rem;
+  font-weight: 900;
+}
+
+.checkout-whatsapp-form input,
+.checkout-whatsapp-form select,
+.checkout-whatsapp-form textarea {
+  background: #ffffff;
+  border: 1px solid rgba(220, 191, 199, 0.9);
+  border-radius: 0.9rem;
+  color: #2b1613;
+  font: inherit;
+  min-height: 44px;
+  padding: 0.75rem 0.85rem;
+  width: 100%;
+}
+
+.checkout-whatsapp-form textarea {
+  resize: vertical;
+}
+
+.checkout-whatsapp-form input:focus,
+.checkout-whatsapp-form select:focus,
+.checkout-whatsapp-form textarea:focus {
+  border-color: #880e4f;
+  outline: 3px solid rgba(255, 176, 204, 0.4);
+}
+
+.checkout-whatsapp-form__error {
+  background: #fff0f1;
+  border: 1px solid rgba(141, 38, 49, 0.22);
+  border-radius: 0.9rem;
+  color: #8d2631;
+  font-weight: 900;
+  margin: 0;
+  padding: 0.75rem 0.85rem;
+}
+
+.checkout-whatsapp-form__submit {
+  background: linear-gradient(135deg, #880e4f, #a82d68);
+  border: 0;
+  border-radius: 999px;
+  color: #ffffff;
+  cursor: pointer;
+  font-weight: 900;
+  min-height: 50px;
+  padding: 0.85rem 1rem;
+}
+
+@media (max-width: 560px) {
+  .checkout-whatsapp-form {
+    grid-template-columns: 1fr;
+  }
+}

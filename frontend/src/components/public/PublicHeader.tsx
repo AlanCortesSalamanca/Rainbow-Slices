@@ -1,7 +1,10 @@
 import { generalWhatsAppLink } from '../../utils/whatsapp';
+import { usePublicCart } from '../../features/publicCart/PublicCartContext';
 import './PublicHeader.css';
 
 export function PublicHeader() {
+  const { isOpen, openCart, totalItems } = usePublicCart();
+
   return (
     <header className="public-header">
       <nav className="public-header__nav" aria-label="Navegación pública">
@@ -16,7 +19,12 @@ export function PublicHeader() {
           <a href="#entregas">Entregas</a>
           <a href="#pedido">Pedir</a>
         </div>
-        <a className="public-header__whatsapp" href={generalWhatsAppLink} target="_blank" rel="noreferrer">Pedir por WhatsApp</a>
+        <div className="public-header__actions">
+          <button type="button" className="public-header__cart" onClick={openCart} aria-expanded={isOpen} aria-controls="public-cart-drawer" aria-label={`Abrir mi pedido con ${totalItems} producto(s)`}>
+            Mi pedido <span>{totalItems}</span>
+          </button>
+          <a className="public-header__whatsapp" href={generalWhatsAppLink} target="_blank" rel="noopener noreferrer">WhatsApp</a>
+        </div>
       </nav>
     </header>
   );
