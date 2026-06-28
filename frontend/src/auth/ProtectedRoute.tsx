@@ -19,7 +19,7 @@ export function ProtectedRoute({ children }: ProtectedRouteProps) {
     return <Navigate to="/login" replace state={{ from: location }} />;
   }
 
-  const role = user?.user_metadata?.role ?? user?.app_metadata?.role;
+  const role = user?.app_metadata?.role;
 
   if (role !== 'admin') {
     return <Navigate to="/login" replace />;

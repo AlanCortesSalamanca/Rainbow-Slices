@@ -9,7 +9,13 @@ import { env } from './config/env';
 
 export const app = express();
 
-const allowedOrigins = env.CORS_ORIGIN.split(',').map((origin) => origin.trim()).filter(Boolean);
+const allowedOrigins = env.CORS_ORIGIN.split(',')
+  .map((origin) => origin.trim().replace(/\/$/, ''))
+  .filter(Boolean);
+
+if (allowedOrigins.length === 0) {
+  throw new Error('CORS_ORIGIN must include at least one allowed origin');
+}
 
 const apiLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,
@@ -19,8 +25,8 @@ const apiLimiter = rateLimit({
 });
 
 app.use(helmet());
-app.use(cors({ origin: allowedOrigins.length > 1 ? allowedOrigins : allowedOrigins[0] }));
-app.use(express.json());
+app.use(cors({ origin: allowedOrigins }));
+app.use(express.json({ limit: '1mb' }));
 
 app.get('/health', (_req, res) => {
   res.json({ ok: true, service: 'rainbow-slices-admin-api' });

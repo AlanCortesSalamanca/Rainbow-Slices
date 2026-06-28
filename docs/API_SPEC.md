@@ -8,7 +8,7 @@ Todos los endpoints administrativos requieren:
 Authorization: Bearer <access_token>
 ```
 
-El token debe venir de Supabase Auth y pertenecer a un usuario con `role: "admin"` en `user_metadata` o `app_metadata`.
+El token debe venir de Supabase Auth y pertenecer a un usuario con `role: "admin"` en `app_metadata`.
 
 ## Public
 

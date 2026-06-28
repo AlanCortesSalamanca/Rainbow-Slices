@@ -23,7 +23,7 @@ Flujo:
 3. Supabase devuelve una sesión con `access_token`.
 4. `apiClient` adjunta `Authorization: Bearer <access_token>` a cada request de negocio.
 5. El backend valida el token con Supabase Auth.
-6. El middleware exige `role: admin` en `user_metadata` o `app_metadata`.
+6. El middleware exige `role: admin` en `app_metadata`.
 7. Si el token falta o expiró, responde `401`; si no tiene rol admin, responde `403`.
 
 La `SUPABASE_SERVICE_ROLE_KEY` vive solo en backend y se usa para tareas administrativas como crear el usuario admin inicial. Nunca se expone al frontend.

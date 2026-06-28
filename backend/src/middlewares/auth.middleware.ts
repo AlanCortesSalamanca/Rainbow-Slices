@@ -4,10 +4,10 @@ import { supabase } from '../config/supabase';
 function getBearerToken(header?: string) {
   if (!header) return null;
 
-  const [scheme, token] = header.split(' ');
-  if (scheme !== 'Bearer' || !token) return null;
+  const match = header.match(/^Bearer\s+(.+)$/i);
+  if (!match?.[1]) return null;
 
-  return token;
+  return match[1];
 }
 
 export const requireAdminAuth: RequestHandler = async (req, res, next) => {
@@ -26,7 +26,7 @@ export const requireAdminAuth: RequestHandler = async (req, res, next) => {
       return;
     }
 
-    const role = data.user.user_metadata?.role ?? data.user.app_metadata?.role;
+    const role = data.user.app_metadata?.role;
 
     if (role !== 'admin') {
       res.status(403).json({ message: 'Admin role required' });

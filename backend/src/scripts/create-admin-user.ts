@@ -37,6 +37,22 @@ async function main() {
   const existingUser = await findUserByEmail(email);
 
   if (existingUser) {
+    if (existingUser.app_metadata?.role !== 'admin') {
+      const { error } = await supabase.auth.admin.updateUserById(existingUser.id, {
+        app_metadata: {
+          ...existingUser.app_metadata,
+          role: 'admin'
+        }
+      });
+
+      if (error) {
+        throw error;
+      }
+
+      console.log('Admin user already exists. app_metadata role was updated safely.');
+      return;
+    }
+
     console.log('Admin user already exists. No changes were made.');
     return;
   }
